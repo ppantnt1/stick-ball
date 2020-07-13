@@ -1,0 +1,16 @@
+#BOX{
+    position: relative;
+
+	top: 20px;
+	left: 50%;
+
+    width: 800px;
+	height: 600px;
+
+    transform: translateX(-450px);
+
+	border: 1px #393939 solid;
+
+	margin: 0px;
+	padding: 0px;
+}
