@@ -2,7 +2,7 @@ function adddetectkey(dk,funcd,funcu){
   window.addEventListener("keydown",key=>{
    switch(key.key){
     case dk:
-      funcd()
+     funcd()
      break;
     }
    })
