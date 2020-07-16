@@ -12,6 +12,7 @@ var player={
  istouch:[false,false,false,false]
 }
 var rolly=0
+var rollx=0
 setTimeout(()=>{
 adddetectkey("w",()=>{player.keypress[0]=1},()=>{player.keypress[0]=0})
 adddetectkey("a",()=>{player.keypress[1]=1},()=>{player.keypress[1]=0})
@@ -30,7 +31,9 @@ function mainloop(){
   clearScreen()
   if (player.y<300){
    rolly=player.y-300
-  }else{rolly=0}
+  }
+  else{rolly=0}
+  rollx=player.x-400
   //console.log(stage)
   player.istouch=detect(player)
   //console.log(player.y)
@@ -63,7 +66,7 @@ function mainloop(){
      player.speed*=0.99
     }
   }
-  if(player.y<stage.one.block[stage.one.block.length-3][0][0]){
+  if(player.y<stage.one.block[stage.one.block.length-3][0][1]){
     gene()
   }
   stage.one.block.forEach(n=>{
