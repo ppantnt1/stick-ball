@@ -2,18 +2,19 @@ var pic,mypos=[]
 function clearScreen(){
 	ctx.clearRect(0, 0, cv.width, cv.height);
 }
-/*
-function drawimage(img,dir,pos=[0,0]){
+
+function drawimage(img,dir,pos=[0,0],size=[25,25]){
   mypos=[]
   pic=store[img];
-  console.log(shift[img][0]+pos[0]-rollx,pic)
-  mypos[0]-rollx+=shift[img][0]+pos[0]-rollx;
-  mypos[1]-rolly+=shift[img][1]+pos[1]-rolly;
+  
+  mypos[0]=shift[img][0]/(size[0]/pic.width)+pos[0]-rollx;
+  mypos[1]=shift[img][1]/(size[1]/pic.height)+pos[1]-rolly;
+  console.log()
   ctx.globalAlpha=1
   if(dir==1){
-	   console.log("d")	//draw image
+	   //console.log("d")	//draw image
 		//l.u. corner coordinate=>(mx+sx,my+sy), e.g.: sx=-20, sy=10 => (mx-20,my+10)
-		ctx.drawImage(pic,mypos[0]-rollx,mypos[1]-rolly,25,25);
+		ctx.drawImage(pic,mypos[0],mypos[1],size[0],size[1]);
 	}else{
 		//save
 		ctx.save();
@@ -27,12 +28,12 @@ function drawimage(img,dir,pos=[0,0]){
 		//back to the original property while doing ctx.save()
 		ctx.restore();
 	}
-}*/
+}
 function drawball(pos=[0,0],r=10,color='#000000'){
 
 	ctx.beginPath()
 	ctx.lineWidth=5
-	ctx.storkeStyle=color
+	ctx.strokeStyle=color;
 	ctx.moveTo(pos[0]-rollx,pos[1]-rolly+r)
 	//console.log(Math.cos(180*pi/180),pos)
 	for (var x=0;x<361;x++){
@@ -55,3 +56,15 @@ function drawblock(pa){
 	ctx.lineTo(pos[0]-rollx-size[0]/2,pos[1]-rolly-size[1]/2)
 	ctx.stroke()
 }
+function printnum(num=0,x=100,y=100,size=15){
+	//mudQ here?
+	//hello??
+	//reply me
+	var p=""+num
+	for (var i=0;i<p.length;i++){
+		//console.log(store["1"],6567587668,store[p[i]],p,num)
+		drawimage(p[i],1,[x,y],[size,size/125*160])
+		
+	}
+}
+
