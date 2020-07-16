@@ -4,6 +4,7 @@ function move(obj,sx,sy){
 }
 function gene(){
     no=stage.one.block[stage.one.block.length-1][0][1]
-    no+=150
-    stage.one.block.push([[Math.random()*800,no],[100,25]])
+    no-=150
+    var the_x=stage.one.block[stage.one.block.length-1][0][0]+Math.random()*1000-500
+    stage.one.block.push([[the_x,no],[100,25]])
 }
