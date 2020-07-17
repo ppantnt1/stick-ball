@@ -7,13 +7,14 @@ function drawimage(img,dir,pos=[0,0],size=[25,25]){
   mypos=[]
   pic=store[img];
   
-  mypos[0]=shift[img][0]/(size[0]/pic.width)+pos[0]-rollx;
-  mypos[1]=shift[img][1]/(size[1]/pic.height)+pos[1]-rolly;
+  mypos[0]=shift[img][0]/(pic.width/size[0])+pos[0];
+  mypos[1]=shift[img][1]/(pic.height/size[1])+pos[1];
   console.log()
   ctx.globalAlpha=1
   if(dir==1){
 	   //console.log("d")	//draw image
 		//l.u. corner coordinate=>(mx+sx,my+sy), e.g.: sx=-20, sy=10 => (mx-20,my+10)
+		//console.log(pic,mypos[0],mypos[1],size[0],size[1])
 		ctx.drawImage(pic,mypos[0],mypos[1],size[0],size[1]);
 	}else{
 		//save
@@ -47,7 +48,17 @@ function drawblock(pa){
 	var pas=[...pa]
 	var pos=pas[0]
 	var size=pas[1]
-	
+	switch(pa[2]){
+		case "Norm":
+			ctx.strokeStyle="#0000FF"
+		break;
+		case "Move":
+			ctx.strokeStyle="#FF0000"
+			break;
+		case "1way":
+			ctx.strokeStyle="#00FF00"
+			break;
+	}
 	ctx.beginPath()
 	ctx.lineWidth=2
 	ctx.moveTo(pos[0]-rollx-size[0]/2,pos[1]-rolly-size[1]/2)
@@ -64,7 +75,7 @@ function printnum(num=0,x=100,y=100,size=15){
 	var p=""+num
 	for (var i=0;i<p.length;i++){
 		//console.log(store["1"],6567587668,store[p[i]],p,num)
-		drawimage(p[i],1,[x,y],[size,size/125*160])
+		drawimage(p[i],1,[x+i*size,y],[size,size/125*160])
 		
 	}
 }

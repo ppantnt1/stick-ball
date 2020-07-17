@@ -28,6 +28,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("stand",[12,12])
 
   //numbruh
+  	img("-",[63,80])
 	img("1",[63,80])
 	img("2",[63,80])
 	img("3",[63,80])

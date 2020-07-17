@@ -10,8 +10,10 @@ function detect(obj){
       output[4]=n[2]
       if ((n[2]&&n[2]=="Move")){
         //console.log(n)
-        player.speed=n[5][0]/5
+        player.aoxs=n[5][0]/5
       }
+      break;
+      
    }
    var blank=((1/60**2+2*player.timeinsky*1/60)*player.g/2+obj.ys)/60*25
    //console.log(blank)
@@ -21,14 +23,16 @@ function detect(obj){
      //console.log(blank)
     //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0])
     if (obj.y+blank>n[0][1]+n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-      //console.log("a")
-      obj.y=-n[1][1]+n[0][1]+1
+      console.log("a")
+      obj.y=-n[1][1]+n[0][1]+5
       output[2]=1
       output[4]=n[2]
-        if ((n[2]&&n[4]=="Move")){
+      if ((n[2]&&n[4]=="Move")){
           console.log(n)
-          player.speed=n[5][0]
+          player.speed=n[5][0]/5
         }
+        break;
+        
     }
     
     

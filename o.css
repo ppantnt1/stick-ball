@@ -1,5 +1,5 @@
 body{
- background-color:#152465; 
+ background-color:#ff0000; 
 }
 #BOX{
     position: relative;
@@ -11,8 +11,8 @@ body{
 	height: 600px;
 
     transform: translateX(-450px);
-
-	border: 1px #393939 solid;
+	background-color:#55FFFF;
+	border: 1px #000000 solid;
 
 	margin: 0px;
 	padding: 0px;
