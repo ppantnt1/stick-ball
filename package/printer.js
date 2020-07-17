@@ -47,6 +47,7 @@ function drawblock(pa){
 	var pas=[...pa]
 	var pos=pas[0]
 	var size=pas[1]
+	
 	ctx.beginPath()
 	ctx.lineWidth=2
 	ctx.moveTo(pos[0]-rollx-size[0]/2,pos[1]-rolly-size[1]/2)

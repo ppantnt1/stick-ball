@@ -1,14 +1,18 @@
 var cv=document.getElementById("BOX")
 var ctx=cv.getContext("2d")
 var pi=Math.PI
+var unit=5
 var player={
  x:400,
  y:500,
  keypress:[0,0,0,0],
  speed:0,
- g:1.8*25,
+ maxaddspeed:0.01,
+ maxspeed:0.5*unit,
+ g:9.8*unit,
  ys:0,
  timeinsky:0,
+ m_speed:15*unit,
  istouch:[false,false,false,false]
 }
 var rolly=0
@@ -18,7 +22,7 @@ adddetectkey("w",()=>{player.keypress[0]=1},()=>{player.keypress[0]=0})
 adddetectkey("a",()=>{player.keypress[1]=1},()=>{player.keypress[1]=0})
 adddetectkey("s",()=>{player.keypress[2]=1},()=>{player.keypress[2]=0})
 adddetectkey("d",()=>{player.keypress[3]=1},()=>{player.keypress[3]=0})},100)
-var snd = new Audio("music.mp3");
+var snd = new Audio("music.mp3"); //LOL
 snd.loop = true; //設定循環播放
 
 
@@ -42,7 +46,7 @@ function mainloop(){
   player.speed*=0.95
   if (true){
     if(player.istouch[2]==0){
-     player.ys+=(1/60**2+2*player.timeinsky*1/60)*player.g/2
+     player.ys+=(1/60**2+2*player.timeinsky*1/60)*unit*player.g/2
      player.timeinsky+=1/60
     }
     else{
@@ -50,20 +54,22 @@ function mainloop(){
        player.timeinsky=0
     }
     if (player.keypress[0]==1&&!player.istouch[2]==0){
-     player.ys=-15;
+     player.ys=-player.m_speed;
      player.timeinsky=0
     }
     if (player.keypress[1]==1){
-     player.speed-=.01;
-     player.speed*=.99
+     player.speed-=player.maxspeed*(1-player.maxaddspeed/2);
+     player.speed*=1-player.maxaddspeed/2
     }
     if (player.keypress[2]==1&&player.istouch[2]==0){
-     player.ys=1.2;
-     player.timeinsky=0
+     player.g=2.45*unit;
+     //player.timeinsky=0
+    }else{
+      player.g=9.8*unit
     }
     if (player.keypress[3]==1){
-     player.speed+=0.01;
-     player.speed*=0.99
+     player.speed+=player.maxspeed*(1-player.maxaddspeed/2);
+     player.speed*=1-player.maxaddspeed/2
     }
   }
   if(player.y<stage.one.block[stage.one.block.length-3][0][1]){
@@ -72,9 +78,16 @@ function mainloop(){
   stage.one.block.forEach(n=>{
    drawblock(n)
   })
+  move_mplafom()
+  if (player.istouch[0]==1){
+    player.ys*=-1
+  }
   drawball([player.x,player.y],10,"#142857")
   move(player,player.speed,player.ys)
-
+  printnum(100)
   //x++,y++
+  //console.log(player.istouch)
 }
 setInterval(mainloop,1000/60)
+
+

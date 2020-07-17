@@ -4,15 +4,19 @@ function move(obj,sx,sy){
 }
 function gene(){
     no=stage.one.block[stage.one.block.length-1][0][1]
-    no-=150
+    no-=250
     var the_x=stage.one.block[stage.one.block.length-1][0][0]+Math.random()*1000-500
-    if(Math.random()>1/10){
-        stage.one.block.push([[the_x,no],[100,25]])
-        console.log("nom")
+    if(stage.one.block.length-1%50==0){
+        stage.one.block.push([[the_x,no],[500000,25]])
     }else{
-        n=Math.floor(Math.random()*5)*40
-        stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,0],[50,0]])
-        console.log("mov",n)
+        if(Math.random()>1/10){
+            stage.one.block.push([[the_x,no],[100,25],"Norm"])
+            console.log("nom")
+        }else{
+            n=Math.floor(Math.random()*5)*40
+            stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,0],[50,0]])
+            console.log("mov",n)
+        }
     }
 }
 function move_mplafom(){
