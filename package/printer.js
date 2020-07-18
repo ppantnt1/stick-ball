@@ -45,6 +45,7 @@ function drawball(pos=[0,0],r=10,color='#000000'){
 	ctx.stroke()
 }
 function drawblock(pa){
+	ctx.globalAlpha=1
 	var pas=[...pa]
 	var pos=pas[0]
 	var size=pas[1]
@@ -54,14 +55,20 @@ function drawblock(pa){
 		break;
 		case "Move":
 			ctx.strokeStyle="#FF0000"
+			//drawblock([[pos[0],pos[1]]])
 			break;
 		case "1way":
 			ctx.strokeStyle="#00FF00"
 			break;
 		case "TDis":
-			ctx.strokeStyle="#00FFFF"
+			ctx.globalAlpha=1-(pa[4][0]/pa[3][0])
+			ctx.strokeStyle=`rgb(0,255,255)`
 			if(pa[4][1]){return;}
+			
 			break;
+		case "Mov2":
+			ctx.strokeStyle="#FF0000"
+
 	}
 	ctx.beginPath()
 	ctx.lineWidth=2

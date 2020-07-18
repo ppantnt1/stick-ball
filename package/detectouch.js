@@ -1,18 +1,20 @@
 function detect(obj){
-  output=[0,0,0,0,"Norm"]
+  output=[0,0,0,0,"Norm",obj.istouch[5]]
   var touching
- for (var n in stage.one.block){
+ for (var b in stage.one.block){
    touching=0
    //console.log(n,stage.one.block)
-   n=stage.one.block[n]
+   n=stage.one.block[b]
+   b=b*1
    //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0]*/)
-   if (obj.y+10>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
+   if (obj.y+player.ballscale>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
       //console.log("a")
       output[2]=1
       output[4]=n[2]
       if ((n[2]&&n[2]=="Move")){
         //console.log(n)
         obj.aoxs=n[5][0]/5
+        obj.aoys=n[5][1]/5
       }
       touching=1
       
@@ -25,13 +27,14 @@ function detect(obj){
      //console.log(blank)
     //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0])
     if (obj.y+blank>n[0][1]+n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-      console.log("a")
-      obj.y=-n[1][1]+n[0][1]+5
+      //console.log("a")
+      obj.y=-n[1][1]+n[0][1]-obj.ballscale/2
       output[2]=1
       output[4]=n[2]
       if ((n[2]&&n[2]=="Move")){
-          console.log(n)
-          obj.speed=n[5][0]/5
+          //console.log(n)
+          obj.aoxs=n[5][0]/5
+          obj.aoys=n[5][1]/5
         }
         touching=1
         
@@ -39,6 +42,11 @@ function detect(obj){
     
     
    }
+  // console.log(touching)
+    if(touching){
+      output[5]=b+1
+      //console.log(b+1)
+    }
    if(n[2]=="TDis"){
      if(touching||n[4][0]>1/120){n[4][0]+=1/60}
      if(n[4][0]>n[3][0]){

@@ -6,19 +6,20 @@ function gene(){
     no=stage.one.block[stage.one.block.length-1][0][1]
     no-=250
     var the_x=stage.one.block[stage.one.block.length-1][0][0]+Math.random()*1000-500
-    if((stage.one.block.length-1)%50==0){
+    if((stage.one.block.length)%100==0){
         console.log("wow")
         stage.one.block.push([[the_x,no],[500000,25],"1way"])
     }else{
-        if(Math.random()>3/20){
+        if(Math.random()>1/3){
             stage.one.block.push([[the_x,no],[100,25],"Norm"])
             console.log("nom")
-        }else if(Math.random()>1/3){
+        }else if(Math.random()>4/5){
             n=Math.ceil(Math.random()*20)*10
-            stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,0],[50,0]])
+            b=Math.ceil(Math.random()*20)*10
+            stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,b],[50,20]])
             console.log("mov",n)
         }else{
-            n=Math.ceil(Math.random()*5)/5
+            n=Math.ceil(Math.random()*100)/50
             stage.one.block.push([[the_x,no],[100,25],"TDis",[n,5],[0,0]])
             console.log("tds",n)
         }
