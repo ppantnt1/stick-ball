@@ -7,8 +7,8 @@ function drawimage(img,dir,pos=[0,0],size=[25,25]){
   mypos=[]
   pic=store[img];
   
-  mypos[0]=shift[img][0]/(pic.width/size[0])+pos[0];
-  mypos[1]=shift[img][1]/(pic.height/size[1])+pos[1];
+  mypos[0]=-shift[img][0]/(pic.width/size[0])+pos[0];
+  mypos[1]=-shift[img][1]/(pic.height/size[1])+pos[1];
   console.log()
   ctx.globalAlpha=1
   if(dir==1){
@@ -50,13 +50,17 @@ function drawblock(pa){
 	var size=pas[1]
 	switch(pa[2]){
 		case "Norm":
-			ctx.strokeStyle="#0000FF"
+			ctx.strokeStyle="#FFFFFF"
 		break;
 		case "Move":
 			ctx.strokeStyle="#FF0000"
 			break;
 		case "1way":
 			ctx.strokeStyle="#00FF00"
+			break;
+		case "TDis":
+			ctx.strokeStyle="#00FFFF"
+			if(pa[4][1]){return;}
 			break;
 	}
 	ctx.beginPath()

@@ -10,13 +10,17 @@ function gene(){
         console.log("wow")
         stage.one.block.push([[the_x,no],[500000,25],"1way"])
     }else{
-        if(Math.random()>1/10){
+        if(Math.random()>3/20){
             stage.one.block.push([[the_x,no],[100,25],"Norm"])
             console.log("nom")
-        }else{
+        }else if(Math.random()>1/3){
             n=Math.ceil(Math.random()*20)*10
             stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,0],[50,0]])
             console.log("mov",n)
+        }else{
+            n=Math.ceil(Math.random()*5)/5
+            stage.one.block.push([[the_x,no],[100,25],"TDis",[n,5],[0,0]])
+            console.log("tds",n)
         }
     }
 }

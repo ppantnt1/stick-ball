@@ -26,8 +26,8 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("running3",[12,12])
   img("running4",[12,12])
   img("stand",[12,12])
-
-  //numbruh
+  img("ballskin1",[500,500])
+  //numbruhs
   	img("-",[63,80])
 	img("1",[63,80])
 	img("2",[63,80])

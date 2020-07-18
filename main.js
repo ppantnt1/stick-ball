@@ -41,11 +41,11 @@ function mainloop(){
   player.aoxs=0
   clearScreen()
   
-  /*color=HSVtoRGB((player.y/500)%100,100,100)
-  console.log((player.y/500)%100,color)
+  color=HSVtoRGB(Math.abs(player.y/50000)%1,1,0.75)
+  //console.log((player.y/500)%100,color)
   ctx.strokeStyle=`rgb(${color.r},${color.g},${color.b})`
-  ctx.lineWidth=1000
-  ctx.strokeRect(0,0,100,1000)*/
+  ctx.lineWidth=10000
+  ctx.strokeRect(0,0,100,1000)
     player.istouch=detect(player)
   if (player.y<300){
    rolly=player.y-300
@@ -110,11 +110,12 @@ function mainloop(){
   if (player.istouch[0]==1){
     player.ys*=-1
   }
-  drawball([player.x,player.y],10,"#142857")
+  drawimage("ballskin1",1,[player.x-rollx,player.y-rolly],[20,20])
+  //drawball([player.x,player.y],10,"#142857")
   move(player,player.speed+player.aoxs,player.ys+player.aoys)
-  printnum(stage.one.block.length-3,400,10)
+  printnum(stage.one.block.length-5,400,10)
   printnum((Math.floor(player.y/unit)-600)*-1,20,25) 
-  printnum((Math.floor(player.x/unit)-600)*-1,20,40) 
+  printnum((Math.floor(player.x/unit))*-1,20,40) 
   //x++,y++
   //console.log(player.istouch)
   
