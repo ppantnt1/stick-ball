@@ -6,6 +6,8 @@ function clearScreen(){
 function drawimage(img,dir,pos=[0,0],size=[25,25]){
   mypos=[]
   pic=store[img];
+  //console.log(pic)
+  //console.log(size,pos)
   
   mypos[0]=-shift[img][0]/(pic.width/size[0])+pos[0];
   mypos[1]=-shift[img][1]/(pic.height/size[1])+pos[1];
@@ -61,10 +63,14 @@ function drawblock(pa){
 			ctx.strokeStyle="#00FF00"
 			break;
 		case "TDis":
-			ctx.globalAlpha=1-(pa[4][0]/pa[3][0])
-			ctx.strokeStyle=`rgb(0,255,255)`
+			//ctx.globalAlpha=(1-(pa[4][0]/pa[3][0]))**0.5
+			ctx.strokeStyle=`rgba(0,255,255,${1-(pa[4][0]/pa[3][0])**2})`
+
 			if(pa[4][1]){return;}
-			
+			printnum(pa[3][0],pos[0]-rollx,pos[1]-rolly,25)
+			break;
+		case "TSDi":
+			ctx.strokeStyle=`rgba(64,128,255,${1-(pa[4][0]/pa[3][0])**2})`
 			break;
 		case "Mov2":
 			ctx.strokeStyle="#FF0000"
@@ -84,9 +90,16 @@ function printnum(num=0,x=100,y=100,size=15){
 	//hello??
 	//reply me
 	var p=""+num
+	var o=0
 	for (var i=0;i<p.length;i++){
+		
 		//console.log(store["1"],6567587668,store[p[i]],p,num)
-		drawimage(p[i],1,[x+i*size,y],[size,size/125*160])
+		drawimage(p[i],1,[x+o*size,y],[size,size/125*160])
+		if(p[i]!="."&&p[i+1]!="."){
+			o+=1
+		}else{
+			o+=0.6
+		}
 		
 	}
 }

@@ -8,11 +8,11 @@ var player={
  keypress:[0,0,0,0],
  speed:0,
  maxaddspeed:0.01,
- maxspeed:0.7*unit,
- g:9.8*unit,
+ maxspeed:1*unit,
+ g:9.8*5*unit,
  ys:0,
  timeinsky:0,
- m_speed:15*unit,
+ m_speed:27*unit,
  istouch:[false,false,false,false],
  aoxs:0,
  aoys:0,
@@ -24,7 +24,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.mp3"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0
+var color,changing=0,main=0
 
 //停止
 function myStop(){
@@ -33,10 +33,10 @@ function myStop(){
 }
 function mainloop(){
   clearScreen()
-  //if (!changing){
+  if (main){
     move_mplafom()  
-    player.aoxs=0
-    player.aoys=0
+    player.aoxs*=0.9
+    player.aoys*=0.9
     
     
     color=HSVtoRGB(Math.abs(player.y/50000)%1,1,0.55)
@@ -78,7 +78,7 @@ function mainloop(){
       }
       if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
         console.log("twicejump")
-        player.ys=-player.m_speed/10*9;
+        player.ys=-player.m_speed/10*5;
         player.timeinsky=0;
         player.twicejump=1
         player.readytwicejump=0
@@ -120,13 +120,16 @@ function mainloop(){
     printnum((Math.floor(player.x/unit))*-1,20,40) 
     //x++,y++
     //console.log(player.istouch)
-  /*}else{
+  }else{
     color=HSVtoRGB(Math.abs(player.y/50000)%1,1,0.55)
     //console.log((player.y/500)%100,color)
+    ctx.globalAlpha=1
     ctx.strokeStyle=`rgb(${color.r},${color.g},${color.b})`
     ctx.lineWidth=10000
     ctx.strokeRect(0,0,100,1000)
-  }*/
+    button("PLAY",[400,300],[75,25],1.2,()=>{main=1})
+    
+  }
 }
 setInterval(mainloop,1000/60)
 

@@ -14,7 +14,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
 	//if onload, store and shift array stocks the image and shift property into it respectively
 	i.onload=function(){
 		store[filename]=this;
-		console.log(store[1],filename)
+		console.log(store[filename],filename)
 		shift[filename]=shift_;
 	};
 
@@ -29,6 +29,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("ballskin1",[500,500])
   img("ballskin2",[300,300])
   img("ballskin3",[500,500])
+  img("PLAY",[37,12])
   //numbruhs
   	img("-",[63,80])
 	img("1",[63,80])
@@ -41,6 +42,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
 	img("8",[63,80])
 	img("9",[63,80])
 	img("0",[63,80])
+	img(".",[63,80])
 })()
 
 var loaded=false;

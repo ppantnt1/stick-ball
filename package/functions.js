@@ -1,3 +1,20 @@
+var cx;
+var cy;
+var cc=false;
+document.onmousemove=function(e) {
+    var cc=false;
+	cx = event.clientX - cv.offsetLeft+400;
+    cy = event.clientY - cv.offsetTop;
+    //console.log(cx,cy)
+}
+
+//if mouse down, set cursor_click to true, so in the next game tick the mainloop function can detect
+cv.addEventListener('mousedown',function(){
+	cc=true;
+})
+cv.addEventListener('mouseup',function(){
+	cc=false;
+})
 function move(obj,sx,sy){
  obj.x+=sx*unit/60
  obj.y+=sy/60*unit
@@ -18,6 +35,10 @@ function gene(){
             b=Math.ceil(Math.random()*20)*10
             stage.one.block.push([[the_x,no],[100,25],"Move",[the_x,no],[n,b],[50,20]])
             console.log("mov",n)
+        }else if(Math.random()>2/5){
+            n=Math.ceil(Math.random()*100)/25+2
+            stage.one.block.push([[the_x,no],[100,25],"TSDi",[n,n],[0,0]])
+            console.log("tds",n)
         }else{
             n=Math.ceil(Math.random()*100)/50
             stage.one.block.push([[the_x,no],[100,25],"TDis",[n,5],[0,0]])
@@ -66,4 +87,23 @@ function HSVtoRGB(h, s, v) {
         g: Math.round(g * 255),
         b: Math.round(b * 255)
     };
+}
+function button(img,pos=[],siz=[],zoom=1.2,func=()=>{}){
+    var isT=false,size=siz
+
+    if(cx>pos[0]-size[0]/2&&cx<pos[0]+size[0]/2){
+        if(cy>pos[1]-size[1]/2&&cy<pos[1]+size[1]/2){
+            isT=true
+        }
+    }
+    if (isT){
+        console.log(11)
+        size=[size[0]*zoom,size[1]*zoom]
+        if(cc){
+            console.log(111)
+            func()
+        }
+    }
+    //console.log(size)
+    drawimage(img,1,pos,size)
 }
