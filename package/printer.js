@@ -3,14 +3,20 @@ function clearScreen(){
 	ctx.clearRect(0, 0, cv.width, cv.height);
 }
 
-function drawimage(img,dir,pos=[0,0],size=[25,25]){
+function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=0){
   mypos=[]
   pic=store[img];
   //console.log(pic)
   //console.log(size,pos)
   
-  mypos[0]=-shift[img][0]/(pic.width/size[0])+pos[0];
-  mypos[1]=-shift[img][1]/(pic.height/size[1])+pos[1];
+  mypos[0]=(-shift[img][0]/(pic.width/size[0])+pos[0]);
+  mypos[1]=(-shift[img][1]/(pic.height/size[1])+pos[1])/(scale[1]/600);
+  if(ingame){
+	  mypos[0]-=(800-scale[0])/2
+	  mypos[0]/=(scale[0]/800)
+	  mypos[1]-=(600-scale[1])/2
+	  mypos[1]/=(scale[1]/600)
+  }
   console.log()
   ctx.globalAlpha=1
   if(dir==1){
@@ -23,7 +29,7 @@ function drawimage(img,dir,pos=[0,0],size=[25,25]){
 		ctx.save();
     console.log("b")
 		//zoom
-		ctx.scale(-1/25,1/25);
+		ctx.scale[0]*800(-1/25,1/25);
 
 		//draw
 		ctx.drawImage(pic,mypos[0]-rollx,mypos[1]-rolly,25,25);
@@ -37,11 +43,11 @@ function drawball(pos=[0,0],r=10,color='#000000'){
 	ctx.beginPath()
 	ctx.lineWidth=5
 	ctx.strokeStyle=color;
-	ctx.moveTo(pos[0]-rollx,pos[1]-rolly+r)
+	ctx.moveTo((pos[0]-rollx-(800-scale[0])/2)/scale[0]*800,((pos[1]-rolly)-r-(600-scale[1])/2)/scale[1]*600)
 	//console.log(Math.cos(180*pi/180),pos)
 	for (var x=0;x<361;x++){
 		//console.log(Math.sin(x/Math.PI),Math.PI)
-		ctx.lineTo(Math.sin(((x*pi)/180))*r+pos[0]-rollx,(Math.cos((x*pi)/180)*r+pos[1]-rolly))
+		ctx.lineTo(((pos[0]-rollx)-(Math.sin((x*pi)/180)*r)-(800-scale[0])/2)/scale[0]*800,((pos[1]-rolly)-(Math.cos((x*pi)/180)*r)-(600-scale[1])/2)/scale[1]*600)
 		//console.log((Math.sin(x/Math.PI)*r+pos[0]-rollx),(Math.cos(x)*r+pos[1]-rolly))
 	}
 	ctx.stroke()
@@ -70,19 +76,29 @@ function drawblock(pa){
 			printnum(pa[3][0],pos[0]-rollx,pos[1]-rolly,25)
 			break;
 		case "TSDi":
-			ctx.strokeStyle=`rgba(64,128,255,${1-(pa[4][0]/pa[3][0])**2})`
+			if(!pa[4][1]){
+				ctx.strokeStyle=`rgba(0,128,255,${0.7*(1-((pa[4][0])/pa[3][0])**2)+0.3})`
+				//log(2)
+			}else{
+				ctx.strokeStyle=`rgba(${255-(255*((pa[4][0]-pa[3][0])/pa[3][1])**2)},128,${(255*((pa[4][0]-pa[3][0])/pa[3][1])**4)},${0.7*(1*((pa[4][0]-pa[3][0])/pa[3][1])**4)+0.3})`
+				//log(1)
+			}
+			//log(pa[4][1])
 			break;
+		case "AIce":
+			ctx.strokeStyle=`rgb(0,255,128)`
+			break;	
 		case "Mov2":
 			ctx.strokeStyle="#FF0000"
 
 	}
 	ctx.beginPath()
 	ctx.lineWidth=2
-	ctx.moveTo(pos[0]-rollx-size[0]/2,pos[1]-rolly-size[1]/2)
-	ctx.lineTo(pos[0]-rollx+size[0]/2,pos[1]-rolly-size[1]/2)
-	ctx.lineTo(pos[0]-rollx+size[0]/2,pos[1]-rolly+size[1]/2)
-	ctx.lineTo(pos[0]-rollx-size[0]/2,pos[1]-rolly+size[1]/2)
-	ctx.lineTo(pos[0]-rollx-size[0]/2,pos[1]-rolly-size[1]/2)
+	ctx.moveTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
+	ctx.lineTo(((pos[0]-rollx+size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
+	ctx.lineTo(((pos[0]-rollx+size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly+size[1]/2-(600-scale[1])/2)/(scale[1]/600))
+	ctx.lineTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly+size[1]/2-(600-scale[1])/2)/(scale[1]/600))
+	ctx.lineTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
 	ctx.stroke()
 }
 function printnum(num=0,x=100,y=100,size=15){

@@ -29,7 +29,13 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("ballskin1",[500,500])
   img("ballskin2",[300,300])
   img("ballskin3",[500,500])
+  //buttons
   img("PLAY",[37,12])
+  img("Easy",[37,12])
+  img("Normal",[37,12])
+  img("Hard",[37,12])
+  img("So Hard",[37,12])
+  img("HELL",[37,12])
   //numbruhs
   	img("-",[63,80])
 	img("1",[63,80])

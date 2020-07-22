@@ -1,0 +1,25 @@
+before 1.0:
+    create movment ball
+    add gravity system
+    add first palfom(with coll)
+    Make generation function
+    Make Moving palfom(and add it to generation function)
+    make 1way palfom
+    let 1way palfom be checkpoint
+    make Touching Disspier palfom(and add it to generation function)
+    Update gravity system
+    
+
+
+1.0:
+    icepalfom
+    fix some bug:
+        gravity
+        coll
+    add diffecule:
+        easy
+        normal
+        hard
+        so hard 
+        hell
+
