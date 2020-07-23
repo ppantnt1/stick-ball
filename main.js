@@ -72,8 +72,8 @@ function mainloop(){
         break;
       case 3:
         t+=0.1
-        //scale=[600,450]
-        //player.g=9.8*unit*2
+        scale=[600,450]
+        player.g=9.8*unit*2
         player.m_speed=32*unit
         rollx+=Math.sin(t)*50
         drawimage("Hard",1,[762,12],[75,25])
