@@ -26,7 +26,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.mp3"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0,main=0,dev_mode=0,diff=0,choose=0,t=0
+var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0
 
 //停止
 function myStop(){
@@ -59,6 +59,44 @@ function mainloop(){
     }
     else{rolly=0}
     rollx=player.x-400
+    switch(diff){
+      case 1:
+        scale=[1000,750]
+        player.g=9.8*unit/2
+        drawimage("Easy",1,[762,12],[75,25])
+        break;
+      case 2:
+        scale=[800,600]
+        player.g=9.8*unit
+        drawimage("Normal",1,[762,12],[75,25])
+        break;
+      case 3:
+        t+=0.1
+        //scale=[600,450]
+        //player.g=9.8*unit*2
+        player.m_speed=45*unit
+        rollx+=Math.sin(t)*50
+        drawimage("Hard",1,[762,12],[75,25])
+        break;
+      case 4:
+        t+=0.1
+        scale=[Math.sin(t)*800+900,Math.cos(t)*600+700]
+        player.g=9.8*unit*2
+        player.m_speed=45*unit
+        rollx+=Math.cos(t+pi)*100
+        rolly+=Math.sin(t+pi)*100
+        drawimage("So Hard",1,[762,12],[75,25])
+        break;
+      case 5:
+        scale=[Math.random()*800+100,Math.random()*600+100]
+        player.g=9.8*unit*4
+        player.m_speed=70*unit
+        rollx+=Math.random()*100-50
+        rolly+=Math.random()*100-50
+        drawimage("HELL",1,[762,12],[75,25])
+        stop=Math.random()
+  
+    }
     //console.log(stage)
     if (player.istouch[4]=="AIce"){
       log(player.istouch[4])
@@ -118,7 +156,7 @@ function mainloop(){
       }
     }
     if(player.y<stage.one.block[stage.one.block.length-3][0][1]){
-      gene()
+      //gene()
     }
     stage.one.block.forEach(n=>{
     drawblock(n)
@@ -131,7 +169,7 @@ function mainloop(){
     if(changing%4==0){
       drawball([player.x,player.y],player.ballscale,"#142857")
     }else{
-      drawimage(`ballskin${changing%4}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2*scale[0]/800,player.ballscale*2*scale[1]/600])
+      drawimage(`ballskin${changing%4}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
     }
     move(player,player.speed+player.aoxs,player.ys+player.aoys)
     printnum(stage.one.block.length-3,400,10)
@@ -158,38 +196,10 @@ function mainloop(){
     //log((1.001**((player.y-600)/100)))
     
   }
-  switch(diff){
-    case 1:
-      scale=[1000,750]
-      player.g=9.8*unit/2
-      drawimage("Easy",1,[762,12],[75,25])
-      break;
-    case 2:
-      scale=[800,600]
-      player.g=9.8*unit
-      drawimage("Normal",1,[762,12],[75,25])
-      break;
-    case 3:
-      scale=[600,450]
-      player.g=9.8*unit
-      drawimage("Hard",1,[762,12],[75,25])
-      break;
-    case 4:
-      scale=[400,300]
-      player.g=9.8*unit*2
-      player.m_speed=60*unit
-      drawimage("So hard",1,[762,12],[75,25])
-      break;
-    case 5:
-      t+=0.1
-      scale=[Math.sin(t)*800+900,Math.cos(t*2)*600+700]
-      player.g=9.8*unit*2
-      player.m_speed=60*unit
-      drawimage("So hard",1,[762,12],[75,25])
-
-  }
-  buttons.forEach(n=>{n.run(),console.log(n)})
-  console.log(buttons)
+  
+  buttons.forEach(n=>{n.run()
+  })
+  //console.log(buttons)
   
 }
 setInterval(mainloop,1000/60)

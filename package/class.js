@@ -46,15 +46,11 @@ class button{
             
         }
         //console.log(size)
-        console.log(!main,!choose)
+        //console.log(!main,!choose)
     }
     
 }
-function log(...arg){
-    if (dev_mode){
-        console.log(...arg)
-    }
-}
+
 var buttons=[]
 
 
@@ -62,7 +58,7 @@ setTimeout(()=>{
 buttons.push(new button("Easy",[100,300],[75,25],1.1,()=>{diff=1,main=1},undefined,()=>{return (!main&&choose)}))
 buttons.push(new button("Normal",[250,300],[75,25],1.1,()=>{diff=2,main=1;},undefined,()=>{return (!main&&choose)}))
 buttons.push(new button("Hard",[400,300],[75,25],1.1,()=>{diff=3,main=1},undefined,()=>{return (!main&&choose)}))
-buttons.push(new button("So Hard",[550,300],[75,25],1.1,()=>{diff=3,main=1},undefined,()=>{return (!main&&choose)}))
+buttons.push(new button("So Hard",[550,300],[75,25],1.1,()=>{diff=4,main=1},undefined,()=>{return (!main&&choose)}))
 buttons.push(new button("HELL",[700,300],[75,25],1.1,()=>{diff=5,main=1},undefined,()=>{return(!main&&choose)}))
 buttons.push(new button("PLAY",[400,300],[75,25],1.2,()=>{choose=1},undefined,()=>{return(!main&&!choose)}));
 console.log(buttons)},300)

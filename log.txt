@@ -8,11 +8,11 @@ before 1.0:
     let 1way palfom be checkpoint
     make Touching Disspier palfom(and add it to generation function)
     Update gravity system
-    
+
 
 
 1.0:
-    icepalfom
+    Added ice-palfom
     fix some bug:
         gravity
         coll

@@ -98,4 +98,9 @@ function HSVtoRGB(h, s, v) {
         b: Math.round(b * 255)
     };
 }
+function log(...arg){
+    if (dev_mode){
+        console.log(...arg)
+    }
+}
 

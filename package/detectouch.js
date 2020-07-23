@@ -2,10 +2,15 @@ function detect(obj){
   output=[0,0,0,0,"Norm",obj.istouch[5],0]
   var touching
  for (var b in stage.one.block){
-   touching=0
+    if(touching==1){
+      break;
+    } 
+    touching=0
    //console.log(n,stage.one.block)
-   n=stage.one.block[b]
    b=b*1
+   b=stage.one.block.length-1-b
+   n=stage.one.block[b]
+   
    //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0]*/)
    if (obj.y+obj.ballscale>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
       //console.log("a")
@@ -19,8 +24,8 @@ function detect(obj){
       touching=1
       
    }
-   var blank=((obj.ys-((1/60**2+2*obj.timeinsky*1/60)*unit*obj.g/2))/60+((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2)*unit)+obj.aoys
-   //log(obj.y,obj.y+blank,n[0][1],obj.y+blank+obj.ballscale>n[0][1]+n[1][1]/2,n[0][1]+n[1][1]/2)
+   var blank=((((obj.ys)/60)*unit+(obj.aoys*5)/60)+((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2)*unit)+2
+   //log(obj.y,obj.y+blank,n[0][1],(1/60**2+2*player.timeinsky*1/60)*unit*player.g/2,obj.y+blank+obj.ballscale>n[0][1]+n[1][1]/2,n[0][1]+n[1][1]/2)
    //if (obj.y<590){//console.log(blank,obj.y+blank,obj.y-blank+10>n[0][1]+n[1][1]/2,obj.y<n[0][1]-n[1][1]/2,obj.y)}
    if (blank>0.1){/*//console.log(blank)*/}
    if (Math.abs(blank)>player.ballscale/2){
