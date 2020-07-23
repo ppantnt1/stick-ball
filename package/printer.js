@@ -78,7 +78,7 @@ function drawblock(pa){
 			ctx.strokeStyle=`rgba(0,255,255,${1-(pa[4][0]/pa[3][0])**2})`
 
 			if(pa[4][1]){return;}
-			printnum(pa[3][0],pos[0]-rollx,pos[1]-rolly,25,1)
+			//printnum(pa[3][0],pos[0]-rollx,pos[1]-rolly,25,1)
 			break;
 		case "TSDi":
 			if(!pa[4][1]){
