@@ -156,7 +156,7 @@ function mainloop(){
       }
     }
     if(player.y<stage.one.block[stage.one.block.length-3][0][1]){
-      //gene()
+      gene()
     }
     stage.one.block.forEach(n=>{
     drawblock(n)
