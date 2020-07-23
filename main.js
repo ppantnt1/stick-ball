@@ -26,7 +26,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.mp3"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0
+var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0
 
 //停止
 function myStop(){
@@ -35,8 +35,11 @@ function myStop(){
 }
 function mainloop(){
   //console.log('\n'.repeat('25'));
-  clearScreen()
+  if(stop<0.5){clearScreen()}
+  
   if (main){
+    
+    console.log(cv.style.top)
     move_mplafom()  
     player.aoxs*=0.9
     player.aoys*=0.9
@@ -72,9 +75,9 @@ function mainloop(){
         break;
       case 3:
         t+=0.1
-        scale=[600,450]
-        player.g=9.8*unit*2
-        player.m_speed=32*unit
+        //scale=[600,450]
+        //player.g=9.8*unit*2
+        player.m_speed=45*unit
         rollx+=Math.sin(t)*50
         drawimage("Hard",1,[762,12],[75,25])
         break;
@@ -93,6 +96,8 @@ function mainloop(){
         player.m_speed=70*unit
         rollx+=Math.random()*100-50
         rolly+=Math.random()*100-50
+        b=Math.random()*100-40
+        cv.style.top=`${b}px`
         drawimage("HELL",1,[762,12],[75,25])
         stop=Math.random()
   
@@ -158,9 +163,17 @@ function mainloop(){
     if(player.y<stage.one.block[stage.one.block.length-3][0][1]){
       gene()
     }
-    stage.one.block.forEach(n=>{
+    if(stop<0.5){
+      if(changing%4==0){
+        drawball([player.x,player.y],player.ballscale,"#142857")
+      }else{
+        drawimage(`ballskin${changing%4}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
+      }
+      stage.one.block.forEach(n=>{
     drawblock(n)
     })
+  }
+    
 
     if (player.istouch[0]==1){
       player.ys*=-1
