@@ -13,12 +13,12 @@ function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false){
   mypos[1]=(-shift[img][1]/(pic.height/size[1])+pos[1]);
   //console.log(ingame,img)
   if(ingame){
-	  mypos[0]-=(800-scale[0])/2
-	  mypos[0]/=(scale[0]/800)
-	  mypos[1]-=(600-scale[1])/2
-	  mypos[1]/=(scale[1]/600)
-	  size[0]/=(scale[0]/800)
-	  size[1]/=(scale[1]/600)
+	  mypos[0]-=(cvw-scale[0])/2
+	  mypos[0]/=(scale[0]/cvw)
+	  mypos[1]-=(cvh-scale[1])/2
+	  mypos[1]/=(scale[1]/cvh)
+	  size[0]/=(scale[0]/cvw)
+	  size[1]/=(scale[1]/cvh)
 	  //console.log(mypos,size)
   }
   //console.log()
@@ -33,7 +33,7 @@ function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false){
 		ctx.save();
     console.log("b")
 		//zoom
-		ctx.scale[0]*800(-1/25,1/25);
+		ctx.scale[0]*cvw(-1/25,1/25);
 
 		//draw
 		ctx.drawImage(pic,mypos[0]-rollx,mypos[1]-rolly,25,25);
@@ -47,17 +47,17 @@ function drawball(pos=[0,0],r=10,color='#000000'){
 	ctx.beginPath()
 	ctx.lineWidth=5
 	ctx.strokeStyle=color;
-	ctx.moveTo((pos[0]-rollx-(800-scale[0])/2)/scale[0]*800,((pos[1]-rolly)-r-(600-scale[1])/2)/scale[1]*600)
+	ctx.moveTo((pos[0]-rollx-(cvw-scale[0])/2)/scale[0]*cvw,((pos[1]-rolly)-r-(cvh-scale[1])/2)/scale[1]*cvh)
 	//console.log(Math.cos(180*pi/180),pos)
 	for (var y=0;y<360;y++){
 		//console.log(Math.sin(x/Math.PI),Math.PI)
 		var x=(y%360)///2-45
-		ctx.lineTo(((pos[0]-rollx)-(Math.sin((x*pi)/180)*r)-(800-scale[0])/2)/scale[0]*800,((pos[1]-rolly)-(Math.cos((x*pi)/180)*r)-(600-scale[1])/2)/scale[1]*600)
+		ctx.lineTo(((pos[0]-rollx)-(Math.sin((x*pi)/180)*r)-(cvw-scale[0])/2)/scale[0]*cvw,((pos[1]-rolly)-(Math.cos((x*pi)/180)*r)-(cvh-scale[1])/2)/scale[1]*cvh)
 		//console.log((Math.sin(x/Math.PI)*r+pos[0]-rollx),(Math.cos(x)*r+pos[1]-rolly))
 	}
 	ctx.stroke()
 }
-function drawblock(pa){
+function drawblocks(pa){
 	ctx.globalAlpha=1
 	var pas=[...pa]
 	var pos=pas[0]
@@ -68,7 +68,7 @@ function drawblock(pa){
 		break;
 		case "Move":
 			ctx.strokeStyle="#FF0000"
-			//drawblock([[pos[0],pos[1]]])
+			//drawblocks([[pos[0],pos[1]]])
 			break;
 		case "1way":
 			ctx.strokeStyle="#00FF00"
@@ -95,16 +95,24 @@ function drawblock(pa){
 			break;	
 		case "Mov2":
 			ctx.strokeStyle="#FF0000"
-
+			break;
+		case "Mods":
+			//console.log(Mod.Stroke)
+			if(typeof(Mod.Stroke)=="string"){
+				ctx.strokeStyle=Mod.Stroke
+			}
+			break;
 	}
+	
 	ctx.beginPath()
 	ctx.lineWidth=2
-	ctx.moveTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
-	ctx.lineTo(((pos[0]-rollx+size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
-	ctx.lineTo(((pos[0]-rollx+size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly+size[1]/2-(600-scale[1])/2)/(scale[1]/600))
-	ctx.lineTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly+size[1]/2-(600-scale[1])/2)/(scale[1]/600))
-	ctx.lineTo(((pos[0]-rollx-size[0]/2-(800-scale[0])/2)/(scale[0]/800)),(pos[1]-rolly-size[1]/2-(600-scale[1])/2)/(scale[1]/600))
+	ctx.moveTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
+	ctx.lineTo(((pos[0]-rollx+size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
+	ctx.lineTo(((pos[0]-rollx+size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly+size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
+	ctx.lineTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly+size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
+	ctx.lineTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
 	ctx.stroke()
+	//console.log(parseInt(cvh))
 }
 function printnum(num=0,x=100,y=100,size=15,ing=0){
 	//mudQ here?

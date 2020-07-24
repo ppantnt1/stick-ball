@@ -22,43 +22,47 @@ function move(obj){
  }
 }
 function gene(){
-    no=stage.one.block[stage.one.block.length-1][0][1]
+    no=blocks[blocks.length-1][0][1]
     no-=250
     //console.log(1/(Math.log(player.y/unit*-1)),player.y*-1)
-    var the_x=stage.one.block[stage.one.block.length-1][0][0]+Math.random()*1000-500
+    var the_x=blocks[blocks.length-1][0][0]+Math.random()*1000-500
     var w=150*(1.0003**((player.y-600)/100))
     console.log(w)
-    if((stage.one.block.length+1)%50==0){
+
+    if((blocks.length+1)%50==0){
         console.log("wow")
-        stage.one.block.push([[the_x,no],[500000,25],"1way"])
+        blocks.push([[the_x,no],[500000,25],"1way"])
     }else{
-        if(Math.random()>1-(1.001**((player.y-600)/100))){
+        if(typeof(Mod)!="undefined"&&Math.random()<Mod.gene){
+            Mod.generation(the_x,no,w)
+            console.log("aaaaa")
+        }else if(Math.random()>1-(1.001**((player.y-600)/100))){
             //console.log(1/(Math.log(player.y-10/unit*-1)))
-            stage.one.block.push([[the_x,no],[w,25],"Norm"])
+            blocks.push([[the_x,no],[w,25],"Norm"])
             console.log("nom")
         }else if(Math.random()>2/5){
             n=Math.ceil(Math.random()*20)*10
             b=Math.ceil(Math.random()*20)*10
-            stage.one.block.push([[the_x,no],[w,25],"Move",[the_x,no],[n,b],[50,20]])
+            blocks.push([[the_x,no],[w,25],"Move",[the_x,no],[n,b],[50,20]])
             console.log("mov",n)
-        }else if(Math.random()>2/5){
+        }else if(Math.random()>4/5){
             n=Math.ceil(Math.random()*100)/25+2
-            stage.one.block.push([[the_x,no],[w,25],"TSDi",[n,n],[0,0]])
+            blocks.push([[the_x,no],[w,25],"TSDi",[n,n],[0,0]])
             console.log("tds",n)
         }else if(Math.random()>2/5){
             n=Math.random()*0.1
-            stage.one.block.push([[the_x,no],[w,25],"AIce",[n]])
+            blocks.push([[the_x,no],[w,25],"AIce",[n]])
             console.log("tds",n)
         }else{
             n=Math.ceil(Math.random()*100)/50
-            stage.one.block.push([[the_x,no],[w,25],"TDis",[n,5],[0,0]])
+            blocks.push([[the_x,no],[w,25],"TDis",[n,5],[0,0]])
             console.log("tds",n)
         }
     }
 }
 function move_mplafom(){
-    for (var i in stage.one.block){
-        array=stage.one.block[i]
+    for (var i in blocks){
+        array=blocks[i]
         if (array.length>2){
             switch(array[2]){
                 case "Move":
