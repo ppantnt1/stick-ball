@@ -28,7 +28,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.mp3"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw
+var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[]
 snd.autoplay
 //停止
 function myStop(){
@@ -121,14 +121,15 @@ function mainloop(){
     
     //console.log(keypress)
     player.speed*=1-player.fact
-    if(player.istouch[4]=="Mod"){
-      Mod.Affect()
-    }
-    if(player.istouch[4]=="Mods"){
-      Mod.Affect()
-    }
+    Mods.forEach(Mod=>{
+      //log(Mod.Name)
+      if(player.istouch[4]==Mod.Name){
+        //log(111)
+        Mod.Affect()
+      }
+    })
     //log(Math.abs(blocks[player.istouch[6]][0][0]-player.x))
-    if(player.istouch[4]=="1way"&&250<Math.abs(blocks[player.istouch[6]][0][0]-player.x)){
+    if(player.istouch[4]=="1way"&&600<Math.abs(blocks[player.istouch[6]][0][0]-player.x)){
       player.x=blocks[player.istouch[6]][0][0]
     }
     if (true){

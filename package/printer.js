@@ -96,14 +96,20 @@ function drawblocks(pa){
 		case "Mov2":
 			ctx.strokeStyle="#FF0000"
 			break;
-		case "Mods":
+		
+	}
+	
+	Mods.forEach(Mod=>{
+		//log(Mod.Name)
+		switch(pa[2]){		
+			case Mod.Name:
 			//console.log(Mod.Stroke)
 			if(typeof(Mod.Stroke)=="string"){
 				ctx.strokeStyle=Mod.Stroke
 			}
 			break;
-	}
-	
+		}
+	})
 	ctx.beginPath()
 	ctx.lineWidth=2
 	ctx.moveTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))

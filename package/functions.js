@@ -27,36 +27,44 @@ function gene(){
     //console.log(1/(Math.log(player.y/unit*-1)),player.y*-1)
     var the_x=blocks[blocks.length-1][0][0]+Math.random()*1000-500
     var w=150*(1.0003**((player.y-600)/100))
+    var n=0
     console.log(w)
 
     if((blocks.length+1)%50==0){
         console.log("wow")
         blocks.push([[the_x,no],[500000,25],"1way"])
     }else{
-        if(typeof(Mod)!="undefined"&&Math.random()<Mod.gene){
-            Mod.generation(the_x,no,w)
-            console.log("aaaaa")
-        }else if(Math.random()>1-(1.001**((player.y-600)/100))){
-            //console.log(1/(Math.log(player.y-10/unit*-1)))
-            blocks.push([[the_x,no],[w,25],"Norm"])
-            console.log("nom")
-        }else if(Math.random()>2/5){
-            n=Math.ceil(Math.random()*20)*10
-            b=Math.ceil(Math.random()*20)*10
-            blocks.push([[the_x,no],[w,25],"Move",[the_x,no],[n,b],[50,20]])
-            console.log("mov",n)
-        }else if(Math.random()>4/5){
-            n=Math.ceil(Math.random()*100)/25+2
-            blocks.push([[the_x,no],[w,25],"TSDi",[n,n],[0,0]])
-            console.log("tds",n)
-        }else if(Math.random()>2/5){
-            n=Math.random()*0.1
-            blocks.push([[the_x,no],[w,25],"AIce",[n]])
-            console.log("tds",n)
-        }else{
-            n=Math.ceil(Math.random()*100)/50
-            blocks.push([[the_x,no],[w,25],"TDis",[n,5],[0,0]])
-            console.log("tds",n)
+        Mods.forEach(Mod => {
+            if(typeof(Mod)!="undefined"&&Math.random()<Mod.gene&&n==0){
+                Mod.generation(the_x,no,w)
+                n=1
+                console.log("aaaaa")
+            }
+        });
+        
+        if(n==0){
+            if(Math.random()>1-(1.001**((player.y-600)/100))){
+                //console.log(1/(Math.log(player.y-10/unit*-1)))
+                blocks.push([[the_x,no],[w,25],"Norm"])
+                console.log("nom")
+            }else if(Math.random()>2/5){
+                n=Math.ceil(Math.random()*20)*10
+                b=Math.ceil(Math.random()*20)*10
+                blocks.push([[the_x,no],[w,25],"Move",[the_x,no],[n,b],[50,20]])
+                console.log("mov",n)
+            }else if(Math.random()>4/5){
+                n=Math.ceil(Math.random()*100)/25+2
+                blocks.push([[the_x,no],[w,25],"TSDi",[n,n],[0,0]])
+                console.log("tds",n)
+            }else if(Math.random()>2/5){
+                n=Math.random()*0.1
+                blocks.push([[the_x,no],[w,25],"AIce",[n]])
+                console.log("tds",n)
+            }else{
+                n=Math.ceil(Math.random()*100)/50
+                blocks.push([[the_x,no],[w,25],"TDis",[n,5],[0,0]])
+                console.log("tds",n)
+            }
         }
     }
 }
