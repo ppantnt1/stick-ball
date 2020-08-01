@@ -43,7 +43,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.wav"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[]
+var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[],ronate=0
 snd.autoplay=true
 snd.load()
 //停止
@@ -221,10 +221,11 @@ function mainloop(){
       player.ys*=-1
       player.timeinsky=0
     }
+    ronate+=1
     if(changing%5==0){
       drawball([player.x,player.y],player.ballscale,"#142857")
     }else{
-      drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
+      drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1,ronate)
     }
     
     move(player,player.xs+player.aoxs,player.ys+player.aoys)
