@@ -3,12 +3,12 @@ function clearScreen(){
 	ctx.clearRect(0, 0, cv.width, cv.height);
 }
 
-function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false){
+function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false,rotate=0){
   mypos=[]
   pic=store[img];
   //console.log(pic)
   //console.log(size,pos)
-  
+
   mypos[0]=(-shift[img][0]/(pic.width/size[0])+pos[0]);
   mypos[1]=(-shift[img][1]/(pic.height/size[1])+pos[1]);
   //console.log(ingame,img)
@@ -20,27 +20,18 @@ function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false){
 	  size[0]/=(scale[0]/cvw)
 	  size[1]/=(scale[1]/cvh)
 	  //console.log(mypos,size)
-  }
-  //console.log()
+  }//console.log()
+  ctx.save()
+  ctx.translate(mypos[0]+size[0]/2,mypos[1]+size[1]/2)
+  ctx.rotate(rotate/180*pi)
   ctx.globalAlpha=1
   if(dir==1){
 	   //console.log("d")	//draw image
 		//l.u. corner coordinate=>(mx+sx,my+sy), e.g.: sx=-20, sy=10 => (mx-20,my+10)
 		//console.log(pic,mypos[0],mypos[1],size[0],size[1])
-		ctx.drawImage(pic,mypos[0],mypos[1],size[0],size[1]);
-	}else{
-		//save
-		ctx.save();
-    console.log("b")
-		//zoom
-		ctx.scale[0]*cvw(-1/25,1/25);
-
-		//draw
-		ctx.drawImage(pic,mypos[0]-rollx,mypos[1]-rolly,25,25);
-
-		//back to the original property while doing ctx.save()
-		ctx.restore();
+		ctx.drawImage(pic,-size[0]/2,-size[1]/2,size[0],size[1]);
 	}
+	ctx.restore()
 }
 function drawball(pos=[0,0],r=10,color='#000000'){
 
