@@ -2,18 +2,33 @@ var cv=document.getElementById("BOX")
 var ctx=cv.getContext("2d")
 var pi=Math.PI
 var unit=5
+const getDeviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return "tablet";
+  }
+  if (
+    /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+      ua
+    )
+  ) {
+    return "mobile";
+  }
+  return "desktop";
+};
+console.log(getDeviceType())
 var player={
  x:400,
  y:590,
  keypress:[0,0,0,0],
- speed:0,
+ xs:0,
  maxaddspeed:0.8,
  maxspeed:15*unit,
  g:9.8*unit,
  ys:0,
  timeinsky:0,
  jumpspeed:35*unit,
- istouch:[false,false,false,false],
+ istouch:[false,false,false,false,0],
  aoxs:0,
  aoys:0,
  twicejump:0,
@@ -26,10 +41,11 @@ cv.style.width="800px"
 var scale=[800,600]
 var rolly=0
 var rollx=0
-var snd = new Audio("music.mp3"); //LOL
+var snd = new Audio("music.wav"); //LOL
 snd.loop = true; //設定循環播放
 var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[]
-snd.autoplay
+snd.autoplay=true
+snd.load()
 //停止
 function myStop(){
     snd.pause();
@@ -40,7 +56,7 @@ function mainloop(){
   if(stop<0.5){clearScreen()}
   
   if (main){
-    
+    player.maxspeed=15*unit
     //console.log(cv.style.top)
     move_mplafom()  
     player.aoxs*=0.9
@@ -51,13 +67,19 @@ function mainloop(){
     
     color=HSVtoRGB(Math.abs(player.y/50000)%1,1,0.55)
     //console.log((player.y/500)%100,color)
+    
     ctx.strokeStyle=`rgb(${color.r},${color.g},${color.b})`
     ctx.lineWidth=10000
     ctx.strokeRect(0,0,100,1000)
+    //log(Math.round((player.x/scale[0]/800)/10)*800-rollx/10)
+    //drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10,300-rolly/10],[800,600],true)
+    background()
+    // drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10-800,300-rolly/10],[800,600],true)
+    // drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10+800,300-rolly/10],[800,600],true)
       player.istouch=detect(player)
     if(player.istouch[2]==0){
-      player.fact=0.05
-      player.maxaddspeed=0.95
+      player.fact=0.02
+      player.maxaddspeed=0.98
     }  
     if (player.y<300){
     rolly=player.y-300
@@ -95,12 +117,13 @@ function mainloop(){
         drawimage("So Hard",1,[762,12],[75,25])
         break;
       case 5:
+        t+=0.05
         scale=[Math.random()*800+100,Math.random()*600+100]
         player.g=9.8*unit*4
         player.jumpspeed=70*unit
         rollx+=Math.random()*100-50
         rolly+=Math.random()*100-50
-        b+=1
+        b=Math.cos(t)*100+600
         cv.style.height=`${b}px`
         drawimage("HELL",1,[762,12],[75,25])
         stop=Math.random()
@@ -118,9 +141,11 @@ function mainloop(){
     }
     //cv.background(color.r+color)
     //console.log(player.y)
-    
     //console.log(keypress)
-    player.speed*=1-player.fact
+    if(player.keypress[4]){
+      player.maxspeed*=0.25
+    }
+    player.xs*=1-player.fact
     Mods.forEach(Mod=>{
       //log(Mod.Name)
       if(player.istouch[4]==Mod.Name){
@@ -129,8 +154,8 @@ function mainloop(){
       }
     })
     //log(Math.abs(blocks[player.istouch[6]][0][0]-player.x))
-    if(player.istouch[4]=="1way"&&600<Math.abs(blocks[player.istouch[6]][0][0]-player.x)){
-      player.x=blocks[player.istouch[6]][0][0]
+    if(player.istouch[4]=="1way"&&1500<Math.abs(blocks[player.istouch[6]][0][0]-player.x)){
+      player.xs=(blocks[player.istouch[6]][0][0]-player.x)/10
     }
     if (true){
       if(player.istouch[2]==0){
@@ -161,9 +186,9 @@ function mainloop(){
         player.readytwicejump=0
       }
       if (player.keypress[1]==1){
-      player.speed-=player.maxspeed*((1/(player.maxaddspeed))-1);
-      player.speed*=player.maxaddspeed/(1-player.fact)
-      //log(player.speed)
+      player.xs-=player.maxspeed*((1/(player.maxaddspeed))-1);
+      player.xs*=player.maxaddspeed/(1-player.fact)
+      //log(player.xs)
       }
       /*if (player.keypress[2]==1&&player.istouch[2]==0){
       player.g=2.45*unit;
@@ -172,19 +197,19 @@ function mainloop(){
         player.g=9.8*unit
       }*/
       if (player.keypress[3]==1){
-      player.speed+=player.maxspeed*((1/player.maxaddspeed)-1);
-      player.speed*=player.maxaddspeed/(1-player.fact)
-      //console.log(player.speed)
+      player.xs+=player.maxspeed*((1/player.maxaddspeed)-1);
+      player.xs*=player.maxaddspeed/(1-player.fact)
+      //console.log(player.xs)
       }
     }
     if(player.y<blocks[blocks.length-3][0][1]){
       gene()
     }
     if(stop<0.5){
-      if(changing%4==0){
+      if(changing%5==0){
         drawball([player.x,player.y],player.ballscale,"#142857")
       }else{
-        drawimage(`ballskin${changing%4}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
+        drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
       }
       blocks.forEach(n=>{
     drawblocks(n)
@@ -196,13 +221,13 @@ function mainloop(){
       player.ys*=-1
       player.timeinsky=0
     }
-    if(changing%4==0){
+    if(changing%5==0){
       drawball([player.x,player.y],player.ballscale,"#142857")
     }else{
-      drawimage(`ballskin${changing%4}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
+      drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
     }
     
-    move(player,player.speed+player.aoxs,player.ys+player.aoys)
+    move(player,player.xs+player.aoxs,player.ys+player.aoys)
     printnum(blocks.length-3,400,10)
     printnum(player.istouch[5],400,30)
     printnum((Math.floor((player.y-600)/unit))*-1,20,25) 

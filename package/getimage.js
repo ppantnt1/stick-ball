@@ -29,6 +29,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("ballskin1",[500,500])
   img("ballskin2",[300,300])
   img("ballskin3",[500,500])
+  img("ballskin4",[50,50])
   //buttons
   img("PLAY",[37,12])
   img("Easy",[37,12])
@@ -49,6 +50,8 @@ function img(filename, shift_=[0,0], cofilename=".png"){
 	img("9",[63,80])
 	img("0",[63,80])
 	img(".",[63,80])
+  //backgroundS
+  img("background",[800,600])
 })()
 
 var loaded=false;

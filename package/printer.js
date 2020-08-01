@@ -49,7 +49,8 @@ function drawball(pos=[0,0],r=10,color='#000000'){
 	ctx.strokeStyle=color;
 	ctx.moveTo((pos[0]-rollx-(cvw-scale[0])/2)/scale[0]*cvw,((pos[1]-rolly)-r-(cvh-scale[1])/2)/scale[1]*cvh)
 	//console.log(Math.cos(180*pi/180),pos)
-	for (var y=0;y<360;y++){
+	for (var y=0;y<361;y++){
+		ctx.lineWidth=Math.cos(x)*(800/scale[0])*5+Math.sin(x)*(600/scale[1])*5
 		//console.log(Math.sin(x/Math.PI),Math.PI)
 		var x=(y%360)///2-45
 		ctx.lineTo(((pos[0]-rollx)-(Math.sin((x*pi)/180)*r)-(cvw-scale[0])/2)/scale[0]*cvw,((pos[1]-rolly)-(Math.cos((x*pi)/180)*r)-(cvh-scale[1])/2)/scale[1]*cvh)

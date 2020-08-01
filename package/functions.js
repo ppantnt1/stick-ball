@@ -14,7 +14,7 @@ cv.addEventListener('mouseup',function(){
 	cc=false;
 })
 function move(obj){
- obj.x+=obj.speed*unit/60+(obj.aoxs*5)/60
+ obj.x+=obj.xs*unit/60+(obj.aoxs*5)/60
  obj.y+=((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60
  //log(((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60+obj.y,obj.y)
  if(obj.istouch[2]==0){
@@ -110,9 +110,19 @@ function HSVtoRGB(h, s, v) {
         b: Math.round(b * 255)
     };
 }
-function log(...arg){
-    if (dev_mode){
-        console.log(...arg)
-    }
+const log=console.log
+function get_p_or_n(a){
+    return a/Math.abs(a)
+}
+function background(image,isinvx=false,isinvy=false){
+drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10,300-rolly/10],[800,600],true)    
+var b=Math.ceil(scale[0]/800)+1
+//log(b)
+for(var x=1;x<b;x++){
+    //log(x)
+    drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10-x*800,300-rolly/10],[800,600],true)
+    drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10+x*800,300-rolly/10],[800,600],true) 
 }
 
+}
+ball=(x)=>{return Math.cos(Math.asin(x))}
