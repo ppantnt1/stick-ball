@@ -57,32 +57,38 @@ function drawblocks(pa){
 	switch(pa[2]){
 		case "Norm":
 			ctx.strokeStyle="#FFFFFF"
+			ctx.fillStyle="#000000"
 		break;
 		case "Move":
 			ctx.strokeStyle="#FF0000"
+			ctx.fillStyle="#FF0000"
 			//drawblocks([[pos[0],pos[1]]])
 			break;
 		case "1way":
 			ctx.strokeStyle="#00FF00"
+			ctx.fillStyle="#FF00FF"
 			break;
 		case "TDis":
 			//ctx.globalAlpha=(1-(pa[4][0]/pa[3][0]))**0.5
 			ctx.strokeStyle=`rgba(0,255,255,${1-(pa[4][0]/pa[3][0])**2})`
-
+			ctx.fillStyle=`rgba(0,255,255,${1-(pa[4][0]/pa[3][0])**2})`
 			if(pa[4][1]){return;}
 			//printnum(pa[3][0],pos[0]-rollx,pos[1]-rolly,25,1)
 			break;
 		case "TSDi":
 			if(!pa[4][1]){
 				ctx.strokeStyle=`rgba(0,128,255,${0.7*(1-((pa[4][0])/pa[3][0])**2)+0.3})`
+				ctx.fillStyle=`rgba(255,128,0,${0.7*(1-((pa[4][0])/pa[3][0])**2)+0.3})`
 				//log(2)
 			}else{
+				ctx.fillStyle=`rgba(255,128,0,${0.7*(1-((pa[4][0])/pa[3][0])**2)+0.3})`
 				ctx.strokeStyle=`rgba(${255-(255*((pa[4][0]-pa[3][0])/pa[3][1])**2)},128,${(255*((pa[4][0]-pa[3][0])/pa[3][1])**4)},${0.7*(1*((pa[4][0]-pa[3][0])/pa[3][1])**4)+0.3})`
 				//log(1)
 			}
 			//log(pa[4][1])
 			break;
 		case "AIce":
+			ctx.fillStyle=`rgba(255,0,128)`
 			ctx.strokeStyle=`rgb(0,255,128)`
 			break;	
 		case "Mov2":
@@ -102,6 +108,7 @@ function drawblocks(pa){
 			break;
 		}
 	})
+	ctx.fillRect(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh),(size[0]/2)*2/(scale[0]/cvw),(size[1]/2)*2/(scale[1]/cvh))
 	ctx.beginPath()
 	ctx.lineWidth=2
 	ctx.moveTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
@@ -110,7 +117,7 @@ function drawblocks(pa){
 	ctx.lineTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly+size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
 	ctx.lineTo(((pos[0]-rollx-size[0]/2-(cvw-scale[0])/2)/(scale[0]/cvw)),(pos[1]-rolly-size[1]/2-(cvh-scale[1])/2)/(scale[1]/cvh))
 	ctx.stroke()
-	//console.log(parseInt(cvh))
+	//	console.log(parseInt(cvh))
 }
 function printnum(num=0,x=100,y=100,size=15,ing=0){
 	//mudQ here?

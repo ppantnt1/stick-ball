@@ -17,6 +17,7 @@ class button{
         this.keyup=0
     }
     run(){
+        //log(cc)
         if(this.show()){
             var isT=false,size=this.siz,pos=this.pos,img=this.img,isTfunc=this.isTfunc,zoom=this.zoom,func=this.func
 
@@ -29,6 +30,7 @@ class button{
             if(cc){
                 this.keydown=1
                 this.keyup=0
+                log(2)
             }
             if(this.keydown&&!cc){
                     this.keydown=0

@@ -1,7 +1,7 @@
 var cx;
 var cy;
 var cc=false;
-document.onmousemove=function(e) {
+if(getDeviceType()=="desktop"){document.onmousemove=function(e) {
     var cc=false;
 	cx = event.clientX - cv.offsetLeft+400;
     cy = event.clientY - cv.offsetTop;
@@ -13,6 +13,10 @@ cv.addEventListener('mousedown',function(){
 cv.addEventListener('mouseup',function(){
 	cc=false;
 })
+
+}else{
+    printnum(1,1,1)
+}
 function move(obj){
  obj.x+=obj.xs*unit/60+(obj.aoxs*5)/60
  obj.y+=((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60
@@ -126,3 +130,47 @@ for(var x=1;x<b;x++){
 
 }
 ball=(x)=>{return Math.cos(Math.asin(x))}
+function movement(){
+    if (player.keypress[0]==1&&!player.istouch[2]==0){
+        player.ys=-player.jumpspeed;
+        player.timeinsky=0
+        }
+        if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
+          console.log("ready")
+          player.readytwicejump=1
+        }
+        if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
+          console.log("twicejump")
+          player.ys=-player.jumpspeed/10*5;
+          player.timeinsky=0;
+          player.twicejump=1
+          player.readytwicejump=0
+        }
+        if (player.keypress[1]==1){
+        player.xs-=player.maxspeed*((1/(player.maxaddspeed))-1);
+        player.xs*=player.maxaddspeed/(1-player.fact)
+        //log(player.xs)
+        }
+        /*if (player.keypress[2]==1&&player.istouch[2]==0){
+        player.g=2.45*unit;
+        //player.timeinsky=0
+        }else{
+          player.g=9.8*unit
+        }*/
+        if (player.keypress[3]==1){
+        player.xs+=player.maxspeed*((1/player.maxaddspeed)-1);
+        player.xs*=player.maxaddspeed/(1-player.fact)
+        //console.log(player.xs)
+        }
+}
+function movement_phone(){
+    
+}
+function startup() {
+    var el = document.getElementsByTagName("canvas")[0];
+    el.addEventListener("touchstart", handleStart, false);
+    el.addEventListener("touchend", handleEnd, false);
+    el.addEventListener("touchcancel", handleCancel, false);
+    el.addEventListener("touchmove", handleMove, false);
+    log("initialized.");
+  }

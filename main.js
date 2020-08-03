@@ -22,8 +22,8 @@ var player={
  y:590,
  keypress:[0,0,0,0],
  xs:0,
- maxaddspeed:0.8,
- maxspeed:15*unit,
+ maxaddspeed:0.99,
+ maxspeed:70000*unit,
  g:9.8*unit,
  ys:0,
  timeinsky:0,
@@ -33,7 +33,7 @@ var player={
  aoys:0,
  twicejump:0,
  readytwicejump:0,
- ballscale:15,
+ scale:15,
  fact:0.25,
 }
 cv.style.height="600px"
@@ -43,7 +43,7 @@ var rolly=0
 var rollx=0
 var snd = new Audio("music.wav"); //LOL
 snd.loop = true; //設定循環播放
-var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[],ronate=0
+var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[],ronate=0,rs=0
 snd.autoplay=true
 snd.load()
 //停止
@@ -62,7 +62,7 @@ function mainloop(){
     player.aoxs*=0.9
     player.aoys*=0.9
     player.fact=0.10
-    player.maxaddspeed=0.8
+    player.maxaddspeed=0.9
     //log(player.istouch)
     
     color=HSVtoRGB(Math.abs(player.y/50000)%1,1,0.55)
@@ -101,9 +101,9 @@ function mainloop(){
         break;
       case 3:
         t+=0.1
-        //scale=[600,450]
-        //player.g=9.8*unit*2
-        player.jumpspeed=45*unit
+        scale=[600,450]
+        player.g=9.8*unit*2
+        player.jumpspeed=50*unit
         rollx+=Math.sin(t)*50
         drawimage("Hard",1,[762,12],[75,25])
         break;
@@ -170,36 +170,8 @@ function mainloop(){
         player.twicejump=0
         player.readytwicejump=0
       }
-      if (player.keypress[0]==1&&!player.istouch[2]==0){
-      player.ys=-player.jumpspeed;
-      player.timeinsky=0
-      }
-      if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
-        console.log("ready")
-        player.readytwicejump=1
-      }
-      if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
-        console.log("twicejump")
-        player.ys=-player.jumpspeed/10*5;
-        player.timeinsky=0;
-        player.twicejump=1
-        player.readytwicejump=0
-      }
-      if (player.keypress[1]==1){
-      player.xs-=player.maxspeed*((1/(player.maxaddspeed))-1);
-      player.xs*=player.maxaddspeed/(1-player.fact)
-      //log(player.xs)
-      }
-      /*if (player.keypress[2]==1&&player.istouch[2]==0){
-      player.g=2.45*unit;
-      //player.timeinsky=0
-      }else{
-        player.g=9.8*unit
-      }*/
-      if (player.keypress[3]==1){
-      player.xs+=player.maxspeed*((1/player.maxaddspeed)-1);
-      player.xs*=player.maxaddspeed/(1-player.fact)
-      //console.log(player.xs)
+      if(getDeviceType()=="desktop"){
+        movement()
       }
     }
     if(player.y<blocks[blocks.length-3][0][1]){
@@ -207,9 +179,9 @@ function mainloop(){
     }
     if(stop<0.5){
       if(changing%5==0){
-        drawball([player.x,player.y],player.ballscale,"#142857")
+        drawball([player.x,player.y],player.scale,"#142857")
       }else{
-        drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1)
+        drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.scale*2,player.scale*2],1)
       }
       blocks.forEach(n=>{
     drawblocks(n)
@@ -221,11 +193,14 @@ function mainloop(){
       player.ys*=-1
       player.timeinsky=0
     }
-    ronate+=1
+    if(player.istouch[2]){
+      rs=(player.xs/((player.scale*2*pi)/360))/60
+    }
+    ronate+=rs
     if(changing%5==0){
-      drawball([player.x,player.y],player.ballscale,"#142857")
+      drawball([player.x,player.y],player.scale,"#142857")
     }else{
-      drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.ballscale*2,player.ballscale*2],1,ronate)
+      drawimage(`ballskin${changing%5}`,1,[player.x-rollx,player.y-rolly],[player.scale*2,player.scale*2],1,ronate)
     }
     
     move(player,player.xs+player.aoxs,player.ys+player.aoys)
@@ -234,6 +209,7 @@ function mainloop(){
     printnum((Math.floor((player.y-600)/unit))*-1,20,25) 
     //console.log((Math.floor((player.x-400)/unit))*1)
     printnum((Math.floor((player.x-400)/unit))*1,20,40) 
+    printnum((Math.floor((player.xs)/unit))*1,20,55) 
     //x++,y++
     //console.log(player.istouch)
     //console.log((1/(10**(player.y*+600))))
