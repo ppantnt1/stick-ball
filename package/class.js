@@ -64,3 +64,43 @@ buttons.push(new button("So Hard",[550,300],[75,25],1.1,()=>{diff=4,main=1},unde
 buttons.push(new button("HELL",[700,300],[75,25],1.1,()=>{diff=5,main=1},undefined,()=>{return(!main&&choose)}))
 buttons.push(new button("PLAY",[400,300],[75,25],1.2,()=>{choose=1},undefined,()=>{return(!main&&!choose)}));
 console.log(buttons)},300)
+class popupstring{
+    constructor(string="",abc=0){
+        this.str=string
+        this.poping=abc
+    }
+    show(){
+        this.poping+=1
+        if(this.poping>this.str.length){
+            this.poping=1
+        }
+        return this.str.substring(0,this.poping)
+    }
+    setto(place){
+        this.poping=place
+    }
+}
+
+a_str=new popupstring(`hadsghaidfsauykdfasjkydgtsyugasukdgtjaskydiukhasgkdyuasj
+asdasdsadsa
+asdasdasd
+asdsaasd
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+`)

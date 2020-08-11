@@ -36,6 +36,7 @@ var player={
  scale:15,
  fact:0.25,
 }
+
 cv.style.height="600px"
 cv.style.width="800px"
 var scale=[800,600]
@@ -52,6 +53,7 @@ function myStop(){
     snd.currentTime = 0;
 }
 function mainloop(){
+  
   //console.log('\n'.repeat('25'));
   if(stop<0.5){clearScreen()}
   
@@ -233,7 +235,8 @@ function mainloop(){
   buttons.forEach(n=>{n.run()
   })
   //console.log(buttons)
-  
+  //printword((Math.random()*20000000).toString(36),20,50,20)
+  printword(a_str.show(),100,100,20)
 }
 setInterval(mainloop,1000/60)
 

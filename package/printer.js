@@ -1,3 +1,4 @@
+const table="0123456789abcdefghijklmnopqrstuvwxyz"
 var pic,mypos=[]
 function clearScreen(){
 	ctx.clearRect(0, 0, cv.width, cv.height);
@@ -137,4 +138,22 @@ function printnum(num=0,x=100,y=100,size=15,ing=0){
 		
 	}
 }
+function printword(text="",x,yd,scale=96){
+	var y=yd
+	text=text.toLowerCase()
+	text=text.replace(/\./g,"")
+	let shft=0
+	for(p in text){
+		let pos=p-shft,i=text[p]
+		let place=table.indexOf(i)
+		
+		if(i==`
+`){
+			y+=scale
+			shft=p*1+1
 
+		}else{
+			ctx.drawImage(store["font"],place*56,0,50,96,x+pos*scale*56/96,y-shift["font"][1],scale*56/96,scale)
+		}
+	}
+}

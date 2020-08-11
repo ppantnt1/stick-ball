@@ -50,6 +50,7 @@ function img(filename, shift_=[0,0], cofilename=".png"){
 	img("9",[63,80])
 	img("0",[63,80])
 	img(".",[63,80])
+	img("font",[0,40])
   //backgroundS
   img("background",[800,600])
 })()

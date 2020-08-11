@@ -1,7 +1,7 @@
 var cx;
 var cy;
 var cc=false;
-if(getDeviceType()=="destop"){document.onmousemove=function(e) {
+if(getDeviceType()=="desktop"){document.onmousemove=function(e) {
     var cc=false;
 	cx = event.clientX - cv.offsetLeft+400;
     cy = event.clientY - cv.offsetTop;
