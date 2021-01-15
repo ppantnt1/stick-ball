@@ -1,5 +1,5 @@
 var jcv,jctx
-//if(d=="mobile"){
+if(d=="mobile"){
     let paint = false;
     var coord={x:0,y:0}
     jcv=document.getElementById("joystick")
@@ -122,4 +122,4 @@ var jcv,jctx
         if (radius >= current_radius) return true
         else return false
     }
-//}
+}

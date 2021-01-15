@@ -116,12 +116,7 @@ function detect(obj){
         }
   }
   
-  //ctx.beginPath()
-  //ctx.moveTo(obj.x-rollx,obj.y-rolly)
-  //ctx.lineTo(p[0]-rollx,p[1]-rolly)
-  //ctx.stroke()
-  //note_pos(0,p[0]-rollx,p[1]-rolly)
-  //console.log(p[0]-n[0][0],b)
+  
   
   
     touching=upcoll(b,n,touching,obj)

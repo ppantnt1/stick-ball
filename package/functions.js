@@ -3,8 +3,8 @@ var cy;
 var cc=false;
 if(getDeviceType()=="desktop"){document.onmousemove=function(e) {
     var cc=false;
-	cx = event.clientX - cv.offsetLeft+400;
-    cy = event.clientY - cv.offsetTop;
+	cx = event.clientX - cv.offsetLeft+400|| event.touches[0].clientX- cv.offsetLeft+400;
+    cy = event.clientY - cv.offsetTop|| event.touches[0].clientY- cv.offsetTop;
     //console.log(cx,cy)
 }
 cv.addEventListener('mousedown',function(){

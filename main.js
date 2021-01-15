@@ -85,6 +85,15 @@ function mainloop(){
     // drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10-800,300-rolly/10],[800,600],true)
     // drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10+800,300-rolly/10],[800,600],true)
       player.istouch=detect(player)
+      ctx.beginPath()
+      ctx.strokeStyle="#000000"
+      ctx.lineWidth=1
+      ctx.moveTo(player.x-rollx,player.y-rolly)
+      ctx.lineTo(blocks[player.istouch[5]][0][0]-rollx,blocks[player.istouch[5]][0][1]-rolly)
+      ctx.stroke()
+      note_pos(0,p[0]-rollx,p[1]-rolly)
+      console.log(p[0]-n[0][0],b)
+      //log(player.istouch)
     if(player.istouch[2]==0){
       player.fact=0.02
       player.maxaddspeed=0.98
