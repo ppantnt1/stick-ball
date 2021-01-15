@@ -96,12 +96,22 @@ console.log(1)
       }
 
 }
+function note_pos(type,x,y){
+  ctx.beginPath()
+  ctx.lineWidth=1
+  ctx.strokeStyle="#000000"
+  ctx.moveTo(x,0)
+  ctx.lineTo(x,600)
+  ctx.moveTo(0,y)
+  ctx.lineTo(800,y)
+  ctx.stroke()
+}
 function move(obj){
  obj.x+=obj.xs*unit/60+(obj.aoxs*5)/60
- obj.y+=((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60
+ obj.y+=obj.ys*unit/60+(obj.aoys*5)/60
  //log(((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60+obj.y,obj.y)
  if(obj.istouch[2]==0){
-     obj.y+=+((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2)*unit
+     //obj.y+=+((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2)*unit
  }
 }
 function gene(){
@@ -215,7 +225,7 @@ function movement(){
         player.timeinsky=0
         }
         if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
-          console.log("ready")
+          //console.log("ready")
           player.readytwicejump=1
         }
         if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){

@@ -16,7 +16,12 @@ const getDeviceType = () => {
   }
   return "desktop";
 };
-console.log(getDeviceType())
+
+function cop(){
+  var text=JSON.stringify(blocks)
+  navigator.clipboard.writeText(text)
+}
+d=getDeviceType()
 var player={
  x:400,
  y:590,
@@ -24,7 +29,7 @@ var player={
  xs:0,
  maxaddspeed:0.99,
  maxspeed:70000*unit,
- g:9.8*unit,
+ g:98*unit,
  ys:0,
  timeinsky:0,
  jumpspeed:35*unit,
@@ -58,6 +63,7 @@ function mainloop(){
   if(stop<0.5){clearScreen()}
   
   if (main){
+    
     player.maxspeed=15*unit
     //console.log(cv.style.top)
     move_mplafom()  
@@ -91,28 +97,28 @@ function mainloop(){
     switch(diff){
       case 1:
         scale=[1000,750]
-        player.g=9.8*unit/2
-        player.jumpspeed=37*unit
+        player.g=98*unit/2
+        player.jumpspeed=50*unit
         drawimage("Easy",1,[762,12],[75,25])
         break;
       case 2:
         scale=[800,600]
-        player.g=9.8*unit
-        player.jumpspeed=37*unit
+        player.g=98*unit
+        player.jumpspeed=50*unit
         drawimage("Normal",1,[762,12],[75,25])
         break;
       case 3:
         t+=0.1
         scale=[600,450]
-        player.g=9.8*unit*2
-        player.jumpspeed=50*unit
+        player.g=98*unit*2
+        player.jumpspeed=75*unit
         rollx+=Math.sin(t)*50
         drawimage("Hard",1,[762,12],[75,25])
         break;
       case 4:
         t+=0.1
         scale=[Math.sin(t)*800+900,Math.cos(t)*600+700]
-        player.g=9.8*unit*2
+        player.g=98*unit*2
         player.jumpspeed=45*unit
         rollx+=Math.cos(t+pi)*100
         rolly+=Math.sin(t+pi)*100
@@ -121,7 +127,7 @@ function mainloop(){
       case 5:
         t+=0.05
         scale=[Math.random()*800+100,Math.random()*600+100]
-        player.g=9.8*unit*4
+        player.g=98*unit*4
         player.jumpspeed=70*unit
         rollx+=Math.random()*100-50
         rolly+=Math.random()*100-50
@@ -161,14 +167,14 @@ function mainloop(){
     }
     if (true){
       if(player.istouch[2]==0){
-      player.ys+=(1/60**2+2*player.timeinsky*1/60)*unit*player.g/2
+      player.ys+=player.g/60
       player.timeinsky+=1/60
       //log("p")
       }
       else{
         //log("iji")
-        player.ys=0
-        player.timeinsky=0
+        player.ys*=-.003
+        //player.timeinsky=0
         player.twicejump=0
         player.readytwicejump=0
       }
@@ -196,7 +202,7 @@ function mainloop(){
       player.timeinsky=0
     }
     if(player.istouch[2]){
-      rs=(player.xs/((player.scale*2*pi)/360))/60
+      rs=(player.xs/60/((player.scale*2*pi)/360))
     }
     ronate+=rs
     if(changing%5==0){
@@ -236,6 +242,7 @@ function mainloop(){
   })
   //console.log(buttons)
   //printword((Math.random()*20000000).toString(36),20,50,20)
+  note_pos(1,cx,cy)
   printword(a_str.show(),100,100,20)
 }
 setInterval(mainloop,1000/60)

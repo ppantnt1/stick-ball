@@ -4,6 +4,19 @@ class monster{
   this.y=pos[1]
  }
 }
+class palform{
+    constructor(x,y,w,h,type,pfunc){
+        this.pf=pfunc
+        this.x=x
+        this.y=y
+        this.w=w
+        this.h=h
+        this.t=type
+    }
+    run(){
+        this.pf()
+    }
+}
 class button{
     constructor(img,pos=[],siz=[],zoom=1.2,func=()=>{},isTfunc=()=>{},showwhen=()=>{return true}){
         this.img=img

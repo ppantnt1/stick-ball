@@ -3,7 +3,7 @@ var pic,mypos=[]
 function clearScreen(){
 	ctx.clearRect(0, 0, cv.width, cv.height);
 }
-
+rollx
 function drawimage(img,dir=1,pos=[0,0],size=[25,25],ingame=false,rotate=0){
   mypos=[]
   pic=store[img];
@@ -153,7 +153,7 @@ function printword(text="",x,yd,scale=96){
 			shft=p*1+1
 
 		}else{
-			ctx.drawImage(store["font"],place*56,0,50,96,x+pos*scale*56/96,y-shift["font"][1],scale*56/96,scale)
+			//ctx.drawImage(store["font"],place*56,0,50,96,x+pos*scale*56/96,y-shift["font"][1],scale*56/96,scale)
 		}
 	}
 }
