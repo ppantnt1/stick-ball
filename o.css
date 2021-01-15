@@ -1,8 +1,9 @@
 body{
  background-color:#200000; 
+ scroll-margin: off;
 }
 #BOX{
-    position: relative;
+    position: fixed;
 
 	top: 20px;
 	left: 50%;
@@ -16,4 +17,19 @@ body{
 
 	margin: 0px;
 	padding: 0px;
+}
+button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 6px;
+}
+#joystick{
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
 }
