@@ -14,6 +14,7 @@ function adddetectkey(dk,funcd,funcu){
      }
     })
 }
+//adddetectkey("Enter",()=>{player.keypress[0]=1},()=>{player.keypress[0]=0})
 adddetectkey("KeyW",()=>{player.keypress[0]=1},()=>{player.keypress[0]=0})
 adddetectkey("KeyA",()=>{player.keypress[1]=1},()=>{player.keypress[1]=0})
 adddetectkey("KeyS",()=>{player.keypress[2]=1},()=>{player.keypress[2]=0})

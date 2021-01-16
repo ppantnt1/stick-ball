@@ -2,6 +2,7 @@ var cv=document.getElementById("BOX")
 var ctx=cv.getContext("2d")
 var pi=Math.PI
 var unit=5
+
 const getDeviceType = () => {
   const ua = navigator.userAgent;
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -18,8 +19,22 @@ const getDeviceType = () => {
 };
 
 function cop(){
-  var text=JSON.stringify(blocks)
+  //console.log(document.cookie)
+  text=JSON.stringify([player,blocks,diff])
+  document.cookie=text
   navigator.clipboard.writeText(text)
+}
+function loa(){
+  data=navigator.clipboard.readText().then(data=>{
+    data=JSON.parse(data)
+    player=data[0]
+    blocks=data[1]
+    diff=data[2]
+  }).catch(err => {
+    document.createElement("input",style="top:0px")
+  });
+  
+  
 }
 d=getDeviceType()
 var player={
@@ -88,11 +103,11 @@ function mainloop(){
       ctx.beginPath()
       ctx.strokeStyle="#000000"
       ctx.lineWidth=1
-      ctx.moveTo(player.x-rollx,player.y-rolly)
+      ctx.moveTo(400,300)
       ctx.lineTo(blocks[player.istouch[5]][0][0]-rollx,blocks[player.istouch[5]][0][1]-rolly)
       ctx.stroke()
-      note_pos(0,p[0]-rollx,p[1]-rolly)
-      console.log(p[0]-n[0][0],b)
+      //note_pos(0,p[0]-rollx,p[1]-rolly)
+      //console.log(p[0]-n[0][0],b)
       //log(player.istouch)
     if(player.istouch[2]==0){
       player.fact=0.02
@@ -252,8 +267,9 @@ function mainloop(){
   //console.log(buttons)
   //printword((Math.random()*20000000).toString(36),20,50,20)
   note_pos(1,cx,cy)
-  printword(a_str.show(),100,100,20)
+  //printword(a_str.show(),100,100,20)
 }
+console.log(document.cookie)
 setInterval(mainloop,1000/60)
 
 

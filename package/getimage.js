@@ -32,6 +32,8 @@ function img(filename, shift_=[0,0], cofilename=".png"){
   img("ballskin4",[50,50])
   //buttons
   img("PLAY",[37,12])
+  img("Load_game",[37,12])
+  img("Save",[37,12])
   img("Easy",[37,12])
   img("Normal",[37,12])
   img("Hard",[37,12])

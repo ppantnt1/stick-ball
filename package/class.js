@@ -75,7 +75,9 @@ buttons.push(new button("Normal",[250,300],[75,25],1.1,()=>{diff=2,main=1;},unde
 buttons.push(new button("Hard",[400,300],[75,25],1.1,()=>{diff=3,main=1},undefined,()=>{return (!main&&choose)}))
 buttons.push(new button("So Hard",[550,300],[75,25],1.1,()=>{diff=4,main=1},undefined,()=>{return (!main&&choose)}))
 buttons.push(new button("HELL",[700,300],[75,25],1.1,()=>{diff=5,main=1},undefined,()=>{return(!main&&choose)}))
-buttons.push(new button("PLAY",[400,300],[75,25],1.2,()=>{choose=1},undefined,()=>{return(!main&&!choose)}));
+buttons.push(new button("PLAY",[400,275],[75,25],1.2,()=>{choose=1},undefined,()=>{return(!main&&!choose)}));
+buttons.push(new button("Load_game",[400,325],[75,25],1.2,()=>{main=1;loa()},undefined,()=>{return(!main&&!choose)}));
+buttons.push(new button("Save",[37,587],[75,25],1.2,()=>{cop()},undefined,()=>{return(main)}));
 console.log(buttons)},300)
 class popupstring{
     constructor(string="",abc=0){
@@ -94,26 +96,26 @@ class popupstring{
     }
 }
 
-a_str=new popupstring(`hadsghaidfsauykdfasjkydgtsyugasukdgtjaskydiukhasgkdyuasj
-asdasdsadsa
-asdasdasd
-asdsaasd
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-`)
+// a_str=new popupstring(`hadsghaidfsauykdfasjkydgtsyugasukdgtjaskydiukhasgkdyuasj
+// asdasdsadsa
+// asdasdasd
+// asdsaasd
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// d
+// `)
