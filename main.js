@@ -1,8 +1,4 @@
-var cv=document.getElementById("BOX")
-var ctx=cv.getContext("2d")
-var pi=Math.PI
-var unit=5
-
+var cv=document.getElementById("BOX"),ctx=cv.getContext("2d"),pi=Math.PI,unit=5,vesion=0,seed=Math.round(Math.random()*50000),primes=[2,3,5,7,11,13,17,23,29],firstload=true
 const getDeviceType = () => {
   const ua = navigator.userAgent;
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -72,6 +68,7 @@ function myStop(){
     snd.pause();
     snd.currentTime = 0;
 }
+
 function mainloop(){
   
   //console.log('\n'.repeat('25'));
@@ -205,6 +202,12 @@ function mainloop(){
       if(getDeviceType()=="desktop"){
         movement()
       }
+    }
+    if (firstload){
+      for(var x=0;x<250;x++){
+        gene()
+      }
+      firstload=false
     }
     if(player.y<blocks[blocks.length-3][0][1]){
       gene()

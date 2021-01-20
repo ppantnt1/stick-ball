@@ -8,10 +8,13 @@ function detect(obj){
   if(touching==1){
     break;
   } 
-  
   b=b*1
   b=blocks.length-1-b
   n=blocks[b]
+  if(Math.abs(obj.y-n[0][1])>1000){
+    continue;
+  }
+  console.count(b)
   var s
   
   var p=[0,0]
