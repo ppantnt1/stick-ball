@@ -1,18 +1,4 @@
 var cv=document.getElementById("BOX"),ctx=cv.getContext("2d"),pi=Math.PI,unit=5,vesion=0,seed=Math.round(Math.random()*50000),primes=[2,3,5,7,11,13,17,23,29],firstload=true
-const getDeviceType = () => {
-  const ua = navigator.userAgent;
-  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-    return "tablet";
-  }
-  if (
-    /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
-      ua
-    )
-  ) {
-    return "mobile";
-  }
-  return "desktop";
-};
 
 function cop(){
   //console.log(document.cookie)
@@ -32,7 +18,6 @@ function loa(){
   
   
 }
-d=getDeviceType()
 var player={
  x:400,
  y:590,
@@ -58,11 +43,11 @@ cv.style.width="800px"
 var scale=[800,600]
 var rolly=0
 var rollx=0
-var snd = new Audio("music.wav"); //LOL
-snd.loop = true; //設定循環播放
+//var snd = new Audio("music.wav"); //LOL
+//snd.loop = true; //設定循環播放
 var color,changing=0,main=0,dev_mode=1,diff=1,choose=0,t=0,stop=0,b=0,cvh,cvw,Mods=[],ronate=0,rs=0
-snd.autoplay=true
-snd.load()
+//snd.autoplay=true
+//snd.load()
 //停止
 function myStop(){
     snd.pause();
@@ -188,8 +173,8 @@ function mainloop(){
     }
     if (true){
       if(player.istouch[2]==0){
-      player.ys+=player.g/60
-      player.timeinsky+=1/60
+        player.ys+=player.g/60
+        player.timeinsky+=1/60
       //log("p")
       }
       else{
@@ -199,9 +184,9 @@ function mainloop(){
         player.twicejump=0
         player.readytwicejump=0
       }
-      if(getDeviceType()=="desktop"){
-        movement()
-      }
+      movement()
+      //if(getDeviceType()=="desktop"){
+      //}
     }
     if (firstload){
       for(var x=0;x<250;x++){
@@ -265,11 +250,10 @@ function mainloop(){
     
   }
   
-  buttons.forEach(n=>{n.run()
-  })
+  buttons.forEach(n=>{n.run()})
   //console.log(buttons)
   //printword((Math.random()*20000000).toString(36),20,50,20)
-  note_pos(1,cx,cy)
+  //note_pos(1,cx,cy)
   //printword(a_str.show(),100,100,20)
 }
 console.log(document.cookie)

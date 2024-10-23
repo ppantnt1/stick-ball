@@ -2,24 +2,21 @@
 var cx;
 var cy;
 var cc=false;
-if(getDeviceType()=="desktop"){document.onmousemove=function(e) {
+if(/*getDeviceType()=="desktop"*/true){document.onmousemove=function(e) {
     var cc=false;
-	  cx = event.clientX - cv.offsetLeft+400|| event.touches[0].clientX- cv.offsetLeft+400;
+          cx = event.clientX - cv.offsetLeft+400|| event.touches[0].clientX- cv.offsetLeft+400;
     cy = event.clientY - cv.offsetTop|| event.touches[0].clientY- cv.offsetTop;
     //console.log(cx,cy)
 }
 cv.addEventListener('mousedown',function(){
-	cc=true;
+        cc=true;
 })
 cv.addEventListener('mouseup',function(){
-	cc=false;
+        cc=false;
 })
 
 }else{
-//are you watching?
-//if u are 
-//reply me at discord
-console.log(1)
+//console.log(1)
     cv.addEventListener("touchstart", handleStart, false);
     cv.addEventListener("touchend", handleEnd, false);
     cv.addEventListener("touchcancel", handleCancel, false);
@@ -131,7 +128,6 @@ function sirandom(i){
   //console.log(sa)
   for (var x=0;x<sa.length;x++){
     if(sa[x]=="1"){
-      console.log(sa[x],2**x*i)
       buffer*=Math.sin((2**x)*i/180*pi)
     }
     //console.log(Math.sin(sa[x]*2**x/180*pi))
@@ -250,34 +246,39 @@ function movement(){
     if (player.keypress[0]==1&&!player.istouch[2]==0){
         player.ys=-player.jumpspeed;
         player.timeinsky=0
-        }
-        if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
-          //console.log("ready")
-          player.readytwicejump=1
-        }
-        if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
-          console.log("twicejump")
-          player.ys=-player.jumpspeed/10*5;
-          player.timeinsky=0;
-          player.twicejump=1
-          player.readytwicejump=0
-        }
-        if (player.keypress[1]==1){
+    }
+    if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
+        //console.log("ready")
+        player.readytwicejump=1
+    }
+    if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
+        //console.log("twicejump")
+        player.ys=-player.jumpspeed/10*5;
+        player.timeinsky=0;
+        player.twicejump=1
+        player.readytwicejump=0
+    }
+    if (player.keypress[1]==1){
         player.xs-=player.maxspeed*((1/(player.maxaddspeed))-1);
         player.xs*=player.maxaddspeed/(1-player.fact)
-        //log(player.xs)
-        }
-        /*if (player.keypress[2]==1&&player.istouch[2]==0){
-        player.g=2.45*unit;
-        //player.timeinsky=0
-        }else{
-          player.g=9.8*unit
-        }*/
-        if (player.keypress[3]==1){
+    }
+    if(player.keypress[1]==1&&player.timeinsky==0&&player.twicejump==1){
+        player.xs-=player.maxspeed*.5;
+    }
+    /*if (player.keypress[2]==1&&player.istouch[2]==0){
+    player.g=2.45*unit;
+    //player.timeinsky=0
+    }else{
+      player.g=9.8*unit
+    }*/
+    if (player.keypress[3]==1){
         player.xs+=player.maxspeed*((1/player.maxaddspeed)-1);
         player.xs*=player.maxaddspeed/(1-player.fact)
-        //console.log(player.xs)
-        }
+    //console.log(player.xs)
+    }
+    if(player.keypress[3]==1&&player.timeinsky==0&&player.twicejump==1){
+        player.xs+=player.maxspeed*.5;
+    }
 }
 function movement_phone(){
     

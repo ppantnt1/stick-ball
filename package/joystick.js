@@ -1,4 +1,4 @@
-var jcv,jctx
+/*var jcv,jctx
 if(d=="mobile"){
     let paint = false;
     var coord={x:0,y:0}
@@ -122,4 +122,4 @@ if(d=="mobile"){
         if (radius >= current_radius) return true
         else return false
     }
-}
+}*/
