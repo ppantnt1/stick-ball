@@ -4,19 +4,19 @@ var cy;
 var cc=false;
 if(/*getDeviceType()=="desktop"*/true){document.onmousemove=function(e) {
     var cc=false;
-          cx = event.clientX - cv.offsetLeft+400|| event.touches[0].clientX- cv.offsetLeft+400;
+    cx = event.clientX - cv.offsetLeft+400|| event.touches[0].clientX- cv.offsetLeft+400;
     cy = event.clientY - cv.offsetTop|| event.touches[0].clientY- cv.offsetTop;
     //console.log(cx,cy)
 }
-cv.addEventListener('mousedown',function(){
+    cv.addEventListener('mousedown',function(){
         cc=true;
-})
-cv.addEventListener('mouseup',function(){
+    })
+    cv.addEventListener('mouseup',function(){
         cc=false;
-})
+    })
 
 }else{
-//console.log(1)
+    //console.log(1)
     cv.addEventListener("touchstart", handleStart, false);
     cv.addEventListener("touchend", handleEnd, false);
     cv.addEventListener("touchcancel", handleCancel, false);
@@ -24,117 +24,109 @@ cv.addEventListener('mouseup',function(){
     function handleStart(evt) {
         evt.preventDefault();
         log("touchstart.");
-              
+
         for (var i = 0; i < touches.length; i++) {
-          log("touchstart:" + i + "...");
-          ongoingTouches.push(copyTouch(touches[i]));
-          var color = colorForTouch(touches[i]);
-          ctx.beginPath();
-          ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
-          ctx.fillStyle = color;
-          ctx.fill();
-          log("touchstart:" + i + ".");
+            log("touchstart:" + i + "...");
+            ongoingTouches.push(copyTouch(touches[i]));
+            var color = colorForTouch(touches[i]);
+            ctx.beginPath();
+            ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
+            ctx.fillStyle = color;
+            ctx.fill();
+            log("touchstart:" + i + ".");
         }
-      }    
-      function handleEnd(evt) {
+    }    
+    function handleEnd(evt) {
         evt.preventDefault();
         log("touchend");
         var touches = evt.changedTouches;
-      
+
         for (var i = 0; i < touches.length; i++) {
-          var color = colorForTouch(touches[i]);
-          var idx = ongoingTouchIndexById(touches[i].identifier);
-      
-          if (idx >= 0) {
-            ctx.lineWidth = 4;
-            ctx.fillStyle = color;
-            ctx.beginPath();
-            ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-            ctx.lineTo(touches[i].pageX, touches[i].pageY);
-            ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8);  // and a square at the end
-            ongoingTouches.splice(idx, 1);  // remove it; we're done
-          } else {
-            log("can't figure out which touch to end");
-          }
+            var color = colorForTouch(touches[i]);
+            var idx = ongoingTouchIndexById(touches[i].identifier);
+
+            if (idx >= 0) {
+                ctx.lineWidth = 4;
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
+                ctx.lineTo(touches[i].pageX, touches[i].pageY);
+                ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8);  // and a square at the end
+                ongoingTouches.splice(idx, 1);  // remove it; we're done
+            } else {
+                log("can't figure out which touch to end");
+            }
         }
-      }
-      function handleCancel(evt) {
+    }
+    function handleCancel(evt) {
         evt.preventDefault();
         log("touchcancel.");
         var touches = evt.changedTouches;
-        
+
         for (var i = 0; i < touches.length; i++) {
-          var idx = ongoingTouchIndexById(touches[i].identifier);
-          ongoingTouches.splice(idx, 1);  // remove it; we're done
+            var idx = ongoingTouchIndexById(touches[i].identifier);
+            ongoingTouches.splice(idx, 1);  // remove it; we're done
         }
-      }
-      function handleMove(evt) {
+    }
+    function handleMove(evt) {
         evt.preventDefault();
         for (var i = 0; i < touches.length; i++) {
-          var color = colorForTouch(touches[i]);
-          var idx = ongoingTouchIndexById(touches[i].identifier);
-      
-          if (idx >= 0) {
-            log("continuing touch "+idx);
-            ctx.beginPath();
-            log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
-            ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-            log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
-            ctx.lineTo(touches[i].pageX, touches[i].pageY);
-            ctx.lineWidth = 4;
-            ctx.strokeStyle = color;
-            ctx.stroke();
-      
-            ongoingTouches.splice(idx, 1, copyTouch(touches[i]));  // swap in the new touch record
-            log(".");
-          } else {
-            log("can't figure out which touch to continue");
-          }
+            var color = colorForTouch(touches[i]);
+            var idx = ongoingTouchIndexById(touches[i].identifier);
+
+            if (idx >= 0) {
+                log("continuing touch "+idx);
+                ctx.beginPath();
+                log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
+                ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
+                log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
+                ctx.lineTo(touches[i].pageX, touches[i].pageY);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = color;
+                ctx.stroke();
+
+                ongoingTouches.splice(idx, 1, copyTouch(touches[i]));  // swap in the new touch record
+                log(".");
+            } else {
+                log("can't figure out which touch to continue");
+            }
         }
-      }
+    }
 
 }
-function note_pos(type,x,y){
-  ctx.beginPath()
-  ctx.lineWidth=1
-  ctx.strokeStyle="#000000"
-  ctx.moveTo(x,0)
-  ctx.lineTo(x,600)
-  ctx.moveTo(0,y)
-  ctx.lineTo(800,y)
-  ctx.stroke()
-}
-function move(obj){
- obj.x+=obj.xs*unit/60+(obj.aoxs*5)/60
- obj.y+=obj.ys*unit/60+(obj.aoys*5)/60
- //log(((obj.ys-((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2))/60)*unit+(obj.aoys*5)/60+obj.y,obj.y)
- if(obj.istouch[2]==0){
-     //obj.y+=+((1/60**2+2*player.timeinsky*1/60)*unit*player.g/2)*unit
- }
+function mark_pos(type,x,y){
+    ctx.beginPath()
+    ctx.lineWidth=1
+    ctx.strokeStyle="#000000"
+    ctx.moveTo(x,0)
+    ctx.lineTo(x,600)
+    ctx.moveTo(0,y)
+    ctx.lineTo(800,y)
+    ctx.stroke()
 }
 function numtobin(num){
-  var numc=num
-  var op=""
-  while (numc!=0){
-    op=(numc%2==1?"1":"0")+op
-    numc-=numc%2==1?1:0
-    numc/=2
-  } 
-  return op
+    var numc=num
+    var op=""
+    while (numc!=0){
+        op=(numc%2==1?"1":"0")+op
+        numc-=numc%2==1?1:0
+        numc/=2
+    } 
+    return op
 }
 
 function sirandom(i){
-  var sa=numtobin(seed).split("").reverse(),buffer=1,op
-  //console.log(sa)
-  for (var x=0;x<sa.length;x++){
-    if(sa[x]=="1"){
-      buffer*=Math.sin((2**x)*i/180*pi)
+    var sa=numtobin(seed).split("").reverse(),buffer=1,op
+    //console.log(sa)
+    for (var x=0;x<sa.length;x++){
+        if(sa[x]=="1"){
+            buffer*=Math.sin((2**x)*i/180*pi)
+        }
+        //console.log(Math.sin(sa[x]*2**x/180*pi))
     }
-    //console.log(Math.sin(sa[x]*2**x/180*pi))
-  }
-  //console.log(buffer)
-  op=Math.abs(seed*i*buffer)%1
-  return op
+    //console.log(buffer)
+    op=Math.abs(seed*i*buffer)%1
+    return op
 }
 console.log(sirandom(1.25),seed)
 function gene(){
@@ -157,7 +149,7 @@ function gene(){
                 console.log("aaaaa")
             }
         });
-        
+
         if(n==0){
             if(sirandom(blocks.length)>1-(1.001**((player.y-600)/100))){
                 //console.log(1/(Math.log(player.y-10/unit*-1)))
@@ -184,7 +176,7 @@ function gene(){
         }
     }
 }
-function move_mplafom(){
+function move_mplafom(dt){
     for (var i in blocks){
         array=blocks[i]
         if (array.length>2){
@@ -196,8 +188,8 @@ function move_mplafom(){
                     if(Math.abs(array[0][1]-array[3][1])>=array[4][1]){
                         array[5][1]*=-1
                     }
-                    array[0][0]+=array[5][0]/60;
-                    array[0][1]+=array[5][1]/60;
+                    array[0][0]+=array[5][0]*dt;
+                    array[0][1]+=array[5][1]*dt;
             }
         }
     }
@@ -231,57 +223,18 @@ function get_p_or_n(a){
     return a/Math.abs(a)
 }
 function background(image,isinvx=false,isinvy=false){
-drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10,300-rolly/10],[800,600],true)    
-var b=Math.ceil(scale[0]/800)+1
-//log(b)
-for(var x=1;x<b;x++){
-    //log(x)
-    drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10-x*800,300-rolly/10],[800,600],true)
-    drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10+x*800,300-rolly/10],[800,600],true) 
-}
+    drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10,300-rolly/10],[800,600],true)    
+    var b=Math.ceil(scale[0]/800)+1
+    //log(b)
+    for(var x=1;x<b;x++){
+        //log(x)
+        drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10-x*800,300-rolly/10],[800,600],true)
+        drawimage("background",1,[Math.round((player.x/800)/10)*800-rollx/10+x*800,300-rolly/10],[800,600],true) 
+    }
 
 }
-ball=(x)=>{return Math.cos(Math.asin(x))}
-function movement(){
-    if (player.keypress[0]==1&&!player.istouch[2]==0){
-        player.ys=-player.jumpspeed;
-        player.timeinsky=0
-    }
-    if (player.keypress[0]==0&&!player.istouch[2]==1&&player.readytwicejump==0){
-        //console.log("ready")
-        player.readytwicejump=1
-    }
-    if(player.keypress[0]==1&&!player.istouch[2]==1&&player.readytwicejump==1&&player.twicejump==0){
-        //console.log("twicejump")
-        player.ys=-player.jumpspeed/10*5;
-        player.timeinsky=0;
-        player.twicejump=1
-        player.readytwicejump=0
-    }
-    if (player.keypress[1]==1){
-        player.xs-=player.maxspeed*((1/(player.maxaddspeed))-1);
-        player.xs*=player.maxaddspeed/(1-player.fact)
-    }
-    if(player.keypress[1]==1&&player.timeinsky==0&&player.twicejump==1){
-        player.xs-=player.maxspeed*.5;
-    }
-    /*if (player.keypress[2]==1&&player.istouch[2]==0){
-    player.g=2.45*unit;
-    //player.timeinsky=0
-    }else{
-      player.g=9.8*unit
-    }*/
-    if (player.keypress[3]==1){
-        player.xs+=player.maxspeed*((1/player.maxaddspeed)-1);
-        player.xs*=player.maxaddspeed/(1-player.fact)
-    //console.log(player.xs)
-    }
-    if(player.keypress[3]==1&&player.timeinsky==0&&player.twicejump==1){
-        player.xs+=player.maxspeed*.5;
-    }
-}
 function movement_phone(){
-    
+
 }
 function startup() {
     var el = document.getElementsByTagName("canvas")[0];
@@ -290,4 +243,4 @@ function startup() {
     el.addEventListener("touchcancel", handleCancel, false);
     el.addEventListener("touchmove", handleMove, false);
     log("initialized.");
-  }
+}

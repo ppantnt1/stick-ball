@@ -1,320 +1,91 @@
 var output
 function detect(obj){
-    output=[0,0,0,0,"Norm",obj.istouch[5],0]
-    var touching
+    //detect only
+    output=[0,0,"Norm",-1]
+    var touching=[0,0];
     var lpos=[obj.x-obj.xs*unit/60,obj.y-obj.ys*unit/60]
     //log(obj.x,obj.y,lpos[0],lpos[1])
     for (var b in blocks){
-        if(touching==1){
-            break;
-        } 
         b=b*1
-        b=blocks.length-1-b
-        n=blocks[b]
+        var c=blocks.length-1-b
+        //console.log(c)
+        var n=blocks[c]
         if(Math.abs(obj.y-n[0][1])>1000){
             continue;
         }
-        ////console.count(b)
-        //var s
+        touching=istouching(n,obj)
+        if(touching[0]!=0){
+            output[0]=touching[0]
+            output[1]=touching[1]
+            output[2]=n[2];
+            output[3]=c;
+            break;
+        } 
 
-        //var p=[0,0]
-        //if(false){
-        //    if(obj.x>n[0][0]){
-        //        s=0
-        //        p[0]=Math.min(obj.x,n[1][0]/2+n[0][0])
-        //        //console.log(obj.x,n[0][0]+n[1][0],Math.min(obj.x,n[1][0]+n[0][0]),rollx)
-        //    }else{
-        //        p[0]=Math.max(obj.x,-n[1][0]/2+n[0][0])
-        //    }
-        //    if(obj.y>n[0][1]){
-        //        p[1]=Math.min(obj.y,n[1][1]/2+n[0][1])
-        //        //console.log(obj.x,n[0][0]+n[1][0],Math.min(obj.x,n[1][0]+n[0][0]),rollx)
-        //    }else{
-        //        p[1]=Math.max(obj.y,-n[1][1]/2+n[0][1])
-        //    }
-        //    if(obj.y>n[0][1]&&lpos[1]<n[0][1]){
-        //        if(Math.abs(obj.x-n[0][0])<n[1][0]/2){
-        //            log("yo",n[2])
-        //            output[2]=true
-        //            //obj.y=n[0][0]+n[1][0]
-        //            s=1
-        //            touching=1
-        //        }
-        //    }
-
-        //    //console.log(((obj.x-p[0])**2+(obj.y-p[1])**2)**0.5,b,obj.scale+.1)
-
-        //    if(((obj.x-p[0])**2+(obj.y-p[1])**2)**0.5<=obj.scale+.1||touching==1){
-        //        touching=1
-        //        if (n[2]=="Move"){
-        //            obj.aoxs=n[5][0]/5
-        //            obj.aoys=n[5][1]/5
-        //        }
-        //        output[5]=b+1
-        //        output[6]=b
-
-        //        output[4]=n[2]
-        //        if(true){
-        //            if(n[2]=="TDis"){
-        //                if(touching||n[4][0]>1/120){n[4][0]+=1/60}
-        //                if(n[4][0]>n[3][0]){
-
-        //                    n[4][1]=1
-        //                    //console.log(n[4][1])
-        //                }
-        //                if((n[2]=="TDis"&&n[4][1]&&touching==1)){
-        //                    output[2]=touching=0
-        //                    //console.log(n[4])
-        //                }
-        //                if((n[4][0]>n[3][0]+n[3][1])&&(n[2]=="TDis"||n[2]=="TSDi")){
-        //                    n[4][1]=0
-        //                    n[4][0]=0
-        //                }
-        //            }
-        //            if(n[2]=="TSDi"){
-        //                //console.log("hgh")
-        //                if(true){n[4][0]+=1/60;
-        //                    //console.log(n[4][0])
-        //                }
-        //                if(n[4][0]>n[3][0]){
-
-        //                    n[4][1]=1
-        //                    //console.log(n[4][0])
-        //                }
-        //                if((n[2]=="TSDi"&&n[4][1]&&touching==1)){
-        //                    output[2]=touching=0
-        //                    //log(n[4])
-        //                }
-        //                if((n[4][0]>n[3][0]+n[3][1])){
-        //                    n[4][1]=0
-        //                    n[4][0]=0
-        //                    //console.log("reset")
-        //                }
-        //            }
-        //            if(touching){
-        //                if(p[1]-n[0][1]<0){
-        //                    output[2]=true
-        //                    obj.y=-n[1][1]/2+n[0][1]-obj.scale*Math.cos((obj.x-p[0])/obj.scale/2*pi)
-        //                }else{
-        //                    if(n[2]!="1way"){
-        //                        output[0]=true
-        //                        obj.y=n[1][1]/2+n[0][1]+obj.scale*Math.cos((obj.x-p[0])/obj.scale/2*pi)+1
-        //                        //obj.ys*=-1
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    if(touching){
-        //        if(p[1]-n[0][1]<0||s==1){
-        //            output[2]=true
-        //            obj.y=-n[1][1]/2+n[0][1]-obj.scale*Math.cos((obj.x-p[0])/obj.scale/2*pi)
-        //        }else{
-        //            if(n[2]!="1way"){
-        //                output[0]=true
-        //                obj.y=n[1][1]/2+n[0][1]+obj.scale*Math.cos((obj.x-p[0])/obj.scale/2*pi)+1
-        //                //obj.ys*=-1
-        //            }
-        //        }
-        //    }
-        //}
-
-
-
-
-        touching=upcoll(b,n,touching,obj)
-        if(!touching){
-          downcoll(b,n,touching,obj)
-        }
     }
-    if(touching==0){
-        //console.log("aaa")
-    }
-    if (obj.y>590){
-        output[2]=1
-    }
+    //if (obj.y>590){
+    //    output[0]=1;
+    //    output[1]=0;
+    //}
 
     //console.log(output)
     //log(output)
     return output
 }
-
-function upcoll(b,n,touchin,obj){
-    var touching=0
-
-    touching=0
-    //console.log(n,blocks)
-
-
-    //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0]*/)
-    if (obj.y+obj.scale>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-        //console.log("a")
-        output[2]=1
-        output[4]=n[2]
-        if ((n[2]&&n[2]=="Move")){
-            //console.log(n)
-            obj.aoxs=n[5][0]/5
-            obj.aoys=n[5][1]/5
-        }
-        touching=1
-
-    }
-    var ballaa=obj.scale
-    if (obj.y+obj.scale>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)>0&&obj.y<n[0][1]-n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)<obj.scale){
-        ballaa=ball((Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2))/obj.scale)*obj.scale
-        //log(ballaa,b)
-        if (obj.y+ballaa>n[0][1]-n[1][1]/2&&obj.y<n[0][1]-n[1][1]/2){
-            //console.log("a")
-            output[2]=1
-            output[4]=n[2]
-            if ((n[2]=="Move")){
-                //console.log(n)
-                obj.aoxs=n[5][0]/5
-                obj.aoys=n[5][1]/5
-            }
-            touching=1
-            //log(Math.sin((Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2))/obj.scale))
-            //obj.aoxs=obj.g*Math.abs(Math.sin((Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2))/obj.scale))*-get_p_or_n(n[0][0]-obj.x)
-
-        }
-    }
-    var blank=obj.ys/60+obj.g/60
-    //log(obj.y,obj.y+blank,n[0][1],(1/60**2+2*player.timeinsky*1/60)*unit*player.g/2,obj.y+blank+obj.scale>n[0][1]+n[1][1]/2,n[0][1]+n[1][1]/2)
-    //if (obj.y<590){//console.log(blank,obj.y+blank,obj.y-blank+10>n[0][1]+n[1][1]/2,obj.y<n[0][1]-n[1][1]/2,obj.y)}
-    if (blank>0.1){/*//console.log(blank)*/}
-    if (Math.abs(blank)>player.scale/2){
-        //console.log(blank)
-        //console.log(obj.y+10>n[0][1]-n[1][1]/2/*,obj.y<n[0][1]-n[1][1]/2,obj.x<n[0][0]+n[1][0])
-        if (obj.y+blank>n[0][1]-n[1][1]/2&&obj.y<n[0][1]+n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-            //console.log("a")
-            output[2]=1
-            output[4]=n[2]
-            if ((n[2]&&n[2]=="Move")){
-                //console.log(n)
-                obj.aoxs=n[5][0]/5
-                obj.aoys=n[5][1]/5
-            }
-            touching=1
-
-        }
-
-
-    }
-    // //console.log(touching)
-    if(touching){
-        output[5]=b+1
-        output[6]=b
-        //console.log(b+1)
-    }
-    if(true){
-        if(n[2]=="TDis"){
-            if(touching||n[4][0]>1/120){n[4][0]+=1/60}
-            if(n[4][0]>n[3][0]){
-
-                n[4][1]=1
-                //console.log(n[4][1])
-            }
-            if((n[2]=="TDis"&&n[4][1]&&touching==1)){
-                output[2]=touching=0
-                //console.log(n[4])
-            }
-            if((n[4][0]>n[3][0]+n[3][1])&&(n[2]=="TDis"||n[2]=="TSDi")){
-                n[4][1]=0
-                n[4][0]=0
-            }
-        }
-        if(n[2]=="TSDi"){
-            //console.log("hgh")
-            if(true){n[4][0]+=1/60;
-                //console.log(n[4][0])
-            }
-            if(n[4][0]>n[3][0]){
-
-                n[4][1]=1
-                //console.log(n[4][0])
-            }
-            if((n[2]=="TSDi"&&n[4][1]&&touching==1)){
-                output[2]=touching=0
-                //log(n[4])
-            }
-            if((n[4][0]>n[3][0]+n[3][1])){
-                n[4][1]=0
-                n[4][0]=0
-                //console.log("reset")
-            }
-        }
-        if(touching){
-            obj.y=+n[0][1]-obj.scale-n[1][1]/2+(obj.scale-ballaa)
-        }
-    }
-    return touching
+function sqdist(x,y){
+    return x*x+y*y
 }
-function downcoll(b,n,t,o){
-    var obj=o
-    if (obj.y-obj.scale<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)>0&&obj.y<n[0][1]-n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)<obj.scale){
-        ballaa=ball((Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2))/obj.scale)*obj.scale
-        //log(ballaa,b)
-        if (obj.y-ballaa<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2){
-            //console.log("a")
-            output[0]=1
-            output[4]=n[2]
-            if ((n[2]=="Move")){
-                //console.log(n)
-                obj.aoxs=n[5][0]/5
-                obj.aoys=n[5][1]/5
-            }
-            touching=1
-            obj.aoxs=obj.g*Math.abs(ballaa)*-get_p_or_n(n[0][0]-obj.x)
-
-        }
-    }
-    if (obj.y-obj.scale<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-        //console.log("a")
-        if (!(n[2]&&n[2]=="1way")){
-            output[0]=1
-            output[6]=b
-            output[4]=n[2]
-        }
-        //console.log(n[2]=="TDis",n[4][1],touching==1)
-        if(n[2]=="TDis"&&n[4][1]){
-            output[0]=0
-            //console.log("q")
-        }
-        if(n[2]=="TSDi"&&n[4][1]){
-            output[0]=0
-            //console.log("q")
-        }
-    }
+function vecmul(u,v){
+    return u[0]*v[0]+u[1]*v[1];
 }
-function lrcoll(b,n,t,o){
-    if (obj.y<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)>0&&obj.y<n[0][1]-n[1][1]/2&&Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2)<obj.scale){
-        ballaa=ball((Math.abs(n[0][0]-obj.x)-Math.abs(n[1][0]/2))/obj.scale)*obj.scale
-        //log(ballaa,b)
-        if (obj.y-ballaa<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2){
-            //console.log("a")
-            output[0]=1
-            output[4]=n[2]
-            if ((n[2]=="Move")){
-                //console.log(n)
-                obj.aoxs=n[5][0]/5
-                obj.aoys=n[5][1]/5
-            }
-            touching=1
-            obj.aoxs=obj.g*Math.abs(ballaa)*-get_p_or_n(n[0][0]-obj.x)
+function axisoverlap(
+    projvec,//vec2
+    obj,//player obj
+    pts,//array of vec2
+){
+    var mag=Math.sqrt(sqdist(projvec[0],projvec[1]));
+    var mxo=obj.scale*mag,mno=-obj.scale*mag;
+    var mxp=-10000000,mnp=10000000;
+    for(var i in pts){
+        var v=pts[i];
+        var val=vecmul(projvec,v);
+        mxp=Math.max(mxp,val);
+        mnp=Math.min(mnp,val);
+    }
+    //console.log(mxo,mno,mxp,mnp);
+    if(mxp<mno||mnp>mxo){
+        return 0;
+    }
+    
+    return Math.sign(mxp,mnp)*Math.min(Math.abs(mxp-mno),Math.abs(mnp-mxo))/mag;
+}
 
+function istouching(n,obj){
+    var ovlp=0,movlp=10000000,dir=0;
+    var points=[];
+    var axes=[[1,0],[0,1]];
+    for(var i=-1;i<2;i+=2){
+        for(var j=-1;j<2;j+=2){
+            points.push([n[0][0]+i*n[1][0]/2-obj.x,n[0][1]+j*n[1][1]/2-obj.y]);
         }
     }
-    if (obj.y-obj.scale<n[0][1]+n[1][1]/2&&obj.y>n[0][1]+n[1][1]/2&&obj.x<n[0][0]+n[1][0]/2&&obj.x>n[0][0]-n[1][0]/2){
-        //console.log("a")
-        //console.log(n[2]=="TDis",n[4][1],touching==1)
-        if(n[2]=="TDis"&&n[4][1]){
-            output[0]=0
-            //console.log("q")
-        }
-        if(n[2]=="TSDi"&&n[4][1]){
-            output[0]=0
-            //console.log("q")
+    for(var i=0;i<2;i++){
+        ovlp=axisoverlap(axes[i],obj,points);
+        if(Math.abs(ovlp)<movlp){
+            movlp=Math.abs(ovlp);
+            dir=Math.atan2(Math.sign(ovlp)*axes[i][0],Math.sign(ovlp)*axes[i][1]);
         }
     }
-    return touching
+
+    for(var i=0;i<4;i++){
+        ovlp=axisoverlap(points[i],obj,points);
+        if(Math.abs(ovlp)<movlp){
+            movlp=Math.abs(ovlp);
+            dir=Math.atan2(Math.sign(ovlp)*points[i][0],Math.sign(ovlp)*points[i][1]);
+        }
+    }
+
+//    if(movlp>0)
+        //console.log(n[2],dir,movlp);
+    return [movlp,dir]
 }
